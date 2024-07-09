@@ -1,7 +1,32 @@
 import React from 'react'
 import Contest from './Contest'
+import { useEffect,useState } from 'react';
 const ContestList = () => {
     // useEffect hook for the fetching part
+    const [ContestList,setContestList] = useState(null);
+    const [isLoading,setisLoading] = useState(true);
+    const [error,setError] = useState(null);
+    useEffect(()=>{
+      fetch("http://localhost:7700/api/contest/all")
+      .then(async (res)=>{
+        const response = await res.json();
+        if(!res.ok){
+          throw new Error(response.message);
+        }else{
+          return response;
+        }
+      })
+      .then((data)=>{
+        console.log(data);
+        setContestList(data);
+        setisLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setError(err);
+        setisLoading(false);
+      })
+    },[]);
   return (
     <div>
         <table className='w-9/12 m-auto'>
@@ -15,12 +40,22 @@ const ContestList = () => {
                 </tr>
              </thead>
              <tbody>
-                <Contest name={"Codeforces Round 946 (Div. 3)"}
-                         setters={["parth","himanshu","sushant","gaurav"]}
-                         date={"May/06/2024"}
-                         time={"20:30" + "UTC+5.5".sup()}
-                         duration={"2 hrs"}
-                />
+             {isLoading ? (
+              <tr><th>Loading</th></tr>
+             ) : error ? (
+              <tr><th>Error</th></tr>
+             ) : (
+                ContestList.map(contest=>(
+                  <Contest 
+                  id={contest._id}
+                  name={contest.name}
+                  setters={contest.setters}
+                  date={contest.date}
+                  time={contest.time + "UTC+5.5"}
+                  duration={contest.duration}
+                  />
+                ))
+            )}
             </tbody>
         </table>
     </div>

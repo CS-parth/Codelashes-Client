@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const Problem = (props) => {
     const statusComponents = {
-        solved: <CheckBadgeIcon className='size-4 fill-bar_base' />,
+        solved: <CheckBadgeIcon className='m-auto size-4 fill-bar_base' />,
         Attempted: null, // or render something for 'Attempted' status
         default: null, // or render something for default case
       };
@@ -12,9 +12,11 @@ const Problem = (props) => {
       return (
         <tr className="">
           <td className='text-center'>{statusComponents[props.status] || statusComponents.default}</td>
-          <NavLink to={`${props.id}`}>
-            <td className="text-center">{props.number}. {props.title}</td>
-          </NavLink>
+          <td className='text-center'>
+              <NavLink to={`/contests/${props.cid}/task/${props.id}`}>
+                  {props.title}
+              </NavLink>
+          </td>
           <td className='text-center'>{props.editorial && (
             <a href=""><DocumentTextIcon className='size-4 fill-bar_base_light'/></a>
           )}</td>

@@ -1,9 +1,15 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 const Contest = (props) => {
+  // console.log("first");
   return (
     <tr>
-        <td>{props.name}</td>
+        <td>
+            <NavLink to={`${props.id}`}>
+                {props.name}
+            </NavLink>
+        </td>
         <td>{
             <ul>{
                 props.setters.map(element => {

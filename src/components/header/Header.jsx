@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Link,NavLink, useNavigate} from 'react-router-dom'
 import Problems from '../problems/Problems'
-import useUser, { UserProvider } from '../../context/UserContext'
+import useUser from '../../context/SessionContext'
 import Cookies from 'universal-cookie';
 const Header = () => {
   const {User,updateUser} = useUser();
