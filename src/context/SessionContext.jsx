@@ -3,19 +3,19 @@ import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
-export const UserContext  = createContext({
-    User: {
-        "username": null,
+export const SessionContext  = createContext({
+    Session: {
+        "Sessionname": null,
         "email": null
     },
-    updateUser: () => {},
+    updateSession: () => {},
     login : () => {},
     logout : () => {}
 })
 
-export const UserProvider = UserContext.Provider; // Just working as a variable for ContextProvider (for Just Parent Components)
+export const SessionProvider = SessionContext.Provider; // Just working as a variable for ContextProvider (for Just Parent Components)
 
-export const UserContextProvider = ({ children }) => {
+export const SessionContextProvider = ({ children }) => {
   const [User, setUser] = useState({ username: null, email: null });
 
   const updateUser = (username, email) => {
@@ -62,13 +62,13 @@ export const UserContextProvider = ({ children }) => {
   },[])
 
   return (
-    <UserContext.Provider value={{ User, updateUser, login, logout }}>
+    <SessionContext.Provider value={{ User, updateUser, login, logout }}>
       {children}
-    </UserContext.Provider>
+    </SessionContext.Provider>
   );
 };
 
-export default function useUser(){ // Custom hook using useContext
-    return useContext(UserContext)
+export default function useSession(){ // Custom hook using useContext
+    return useContext(SessionContext)
 }
 
