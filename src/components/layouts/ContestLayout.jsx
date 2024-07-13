@@ -2,11 +2,12 @@ import {React,useState,useEffect, useContext} from 'react'
 import { Outlet, useParams, NavLink } from 'react-router-dom';
 import ContestHeader from '../header/ContestHeader';
 import ContestFooter from '../footer/ContestFooter';
-import {useContest,ContestContext} from '../../context/ContestContext';
+import {useContest} from '../../context/ContestContext';
+import ContestTimer from '../timer/ContestTimer';
 
 const ContestLayout = () => {
   
-  const {Contest,isLoading,error} = useContext(ContestContext);
+  const {isLoading,error,isStarted} = useContest();
   
   if(isLoading) return (<div>Loading</div>)
 
@@ -30,11 +31,11 @@ const ContestLayout = () => {
                             <NavLink to="discuss" className="text-gray-700 hover:text-gray-900">Discuss</NavLink>
                         </div>
                         <div>
-                        <span className="text-gray-600">Time Remaining: {Contest.duration}</span>
+                        <span className="text-gray-600"> {isStarted && <ContestTimer/>}</span>
                         </div>
                     </div>
                 </div>
-                <Outlet />
+                {isStarted && <Outlet />}
                 </main>
             </div>
             <ContestFooter />
