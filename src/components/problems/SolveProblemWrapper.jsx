@@ -28,8 +28,8 @@ export const SolveProblemWrapper = () => {
         // clearInterval(intervalId);
         socket.off('verdict', onVerdict);
       };
-    },[jobId]);
-  
+    },[jobId]); // Maybe job-id is indeed not requied (will ccheck it later) 
+    
     return (
         <SolveProblem 
           verdictQueue={verdictQueue} 

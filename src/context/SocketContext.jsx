@@ -27,7 +27,7 @@ export const SocketContextProvider = ({children})=>{
         return () => {
           socket.disconnect();
         };
-    }, [roomId]);
+    }, [roomId]); // re-connection is not handled (temprary dis-connect)
     
     return (
         <SocketContext.Provider value={{roomId,isConnected}}>

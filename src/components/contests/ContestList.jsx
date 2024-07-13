@@ -17,7 +17,7 @@ const ContestList = () => {
         }
       })
       .then((data)=>{
-        console.log(data);
+        // console.log(data);
         setContestList(data);
         setisLoading(false);
       })

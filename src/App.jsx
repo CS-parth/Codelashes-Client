@@ -5,6 +5,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Routes,
 } from "react-router-dom";
 import Layout from './components/layouts/MainLayout.jsx';
 import Home from './components/home/Home.jsx'
@@ -32,20 +33,27 @@ import { SocketContextProvider } from './context/SocketContext.jsx';
 import ResultLayout from './components/layouts/ResultLayout.jsx';
 import MySubmissions from './components/results/MySubmissions.jsx';
 import AllSubmissions from './components/results/AllSubmissions.jsx';
+import GarageLayout from './components/garage/GarageLayout.jsx'
+import CreateContest from './components/garage/CreateContest.jsx';
+import ManageContestLayout from './components/garage/ManageContestLayout';
+import ManageContestCreateProblem from './components/garage/ManageContestCreateProblem.jsx';
+import ManageContestSettings from './components/garage/ManageContestSettings.jsx';
+import ManageContestTop from './components/garage/ManageContestTop.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-  
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="problems" element={<Problems />} />
         <Route path="contests" element={<Contests />} />
         <Route path="blogs" element={<Blogs />} />
+        <Route path="garage" element={<GarageLayout />} />
       </Route>
+
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
-      // <Route path="problems/:id" element={<SolveProblemWrapper />} />
+
       <Route path="contests/:id" element={<ContestLayoutWrapper />}>
         <Route index element={<SolveContest />} />
         <Route path="task" element={<Task />} />
@@ -60,6 +68,12 @@ const router = createBrowserRouter(
         <Route path="discuss" element={<Discuss />} />
       </Route>
 
+      <Route path='garage/contest/create' element={<CreateContest/>}/>
+      <Route path="garage/contest/manage/:id" element={<ManageContestLayout/>}>
+        <Route index element={<ManageContestTop/>}/>
+        <Route path="create" element={<ManageContestCreateProblem/>}/>
+        <Route path="update" element={<ManageContestSettings/>}/>
+      </Route>
       </>
   )
 );

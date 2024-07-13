@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 const Header = () => {
   const {User,updateUser} = useUser();
   const cookies = new Cookies();
+
   const logoutHandler = () =>{
     updateUser(null,null);
     cookies.remove('jwt');
@@ -23,6 +24,7 @@ const Header = () => {
                     <li> <NavLink to="/contests">Contests</NavLink></li>
                     <li><NavLink to="/blogs">Blogs</NavLink></li>
                     <li><NavLink to="">Sessions</NavLink></li>
+                    <li><NavLink to="/garage">Garage</NavLink></li>
                 </ul>
             </div>
               {(User.username === null) && 
