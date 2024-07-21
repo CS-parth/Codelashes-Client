@@ -2,26 +2,17 @@ import React, { useState } from 'react'
 import { Button,Description, Field, Input, Label } from '@headlessui/react'
 import axios from 'axios';
 import useUser from '../../context/SessionContext';
-import  { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
-
+import { useNavigate } from 'react-router-dom';
+const cookies = new Cookies();
 const Login = () => {
-  const {updateUser} = useUser();
+  const navigate = useNavigate();
+  const {updateUser,login} = useUser();
   const [username,setUsername] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
-  const navigate = useNavigate();
-  const cookies = new Cookies();
-  const loginSubmitHandler = () =>{
-        axios.post(`http://localhost:7700/api/auth/signin`, { username,email,password })
-             .then((res) => {
-                if(res.data.success){
-                    updateUser(username,email);
-                    cookies.set('jwt',res.data.token,{path:'/'})
-                    navigate("/");
-                }
-             })
-             .catch(err=>console.error(err));
+  const loginSubmitHandler = () => {
+        login(username,email,password);
   }
   return (
     <div className='flex flex-col items-center justify-between'>

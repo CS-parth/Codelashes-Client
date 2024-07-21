@@ -1,14 +1,14 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from 'universal-cookie';
-
+import { useNavigate } from 'react-router-dom';
 const cookies = new Cookies();
 export const SessionContext  = createContext({
     Session: {
-        "Sessionname": null,
+        "usernname": null,
         "email": null
     },
-    updateSession: () => {},
+    updateUser: () => {},
     login : () => {},
     logout : () => {}
 })
@@ -23,21 +23,39 @@ export const SessionContextProvider = ({ children }) => {
   };
   
   const login = (username,email,password) => {
-    axios.post(`http://localhost:7700/api/auth/signin`, { username,email,password })
-             .then((res) => {
-                if(res.data.success){
-                    updateUser(username,email);
-                    cookies.set('jwt',res.data.token,{path:'/'})
-                    navigate("/");
-                }
-             })
-             .catch(err=>console.error(err));
+        fetch(`http://localhost:7700/api/auth/signin`, { 
+                method:"POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body:JSON.stringify({username,email,password})})
+                .then((res) => {
+                    if(res.ok){
+                        updateUser(username,email);
+                        window.location.href = "/";
+                    }
+                })
+                .catch(err=>console.error(err));
   };
 
   const logout = () => {
-    updateUser(null,null);
-    cookies.remove('jwt');
-  }
+    fetch("http://localhost:7700/api/auth/logout",{
+      method:"POST",
+      credentials:"include"
+    })
+    .then((response) => {
+      if (response.ok){
+        updateUser(null, null);
+        window.location.reload();
+      } else {
+        console.error('Logout was not successful');
+      }
+    })
+    .catch(error => {
+      console.error('Logout failed:', error);
+    });
+  };
 
   useEffect(() => {
     localStorage.setItem('User', JSON.stringify(User));
@@ -53,7 +71,10 @@ export const SessionContextProvider = ({ children }) => {
         'Content-Type': 'application/json'
        }}).then((res)=>{
             if(res.data.success){
-              setUser({...res.data.user})
+              setUser(()=>({
+                username: res.data.user.username,
+                email: res.data.user.email
+              }))
             }
           })
           .catch(err=>console.log(err));

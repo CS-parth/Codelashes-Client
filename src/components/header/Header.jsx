@@ -4,13 +4,12 @@ import Problems from '../problems/Problems'
 import useUser from '../../context/SessionContext'
 import Cookies from 'universal-cookie';
 const Header = () => {
-  const {User,updateUser} = useUser();
+  const {User,updateUser,logout} = useUser();
   const cookies = new Cookies();
-
-  const logoutHandler = () =>{
-    updateUser(null,null);
-    cookies.remove('jwt');
-  }
+  
+  // const logoutHandler = () =>{
+  //     logout();
+  // }
 
   return (
     <>
@@ -34,7 +33,7 @@ const Header = () => {
                 </div>
               }
               {(User.username !== null) && 
-                <button onClick={logoutHandler}>Logout</button>
+                <button onClick={logout}>Logout</button>
               }
         </div>
     </>

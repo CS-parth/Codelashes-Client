@@ -6,11 +6,11 @@ const Contests = () => {
     <div className='flex flex-col justify-between text-center mt-10'>
         <div className='mt-10'>
           <h1> UpComing Contests </h1>          
-          <ContestList/>
+          <ContestList passed={false}/>
         </div>
         <div className='mt-10'>
           <h1> Passed Contests </h1>
-          <ContestList/>
+          <ContestList passed={true}/>
         </div>
     </div>
   )

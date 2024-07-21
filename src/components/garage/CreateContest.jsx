@@ -1,10 +1,13 @@
-import React from 'react'
+import {React,useCallback,useRef} from 'react'
 import { useForm,Controller } from 'react-hook-form';
 import {z} from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 import moment from 'moment';
 import './fixInput.css';
 import Multiselect from 'multiselect-react-dropdown';
+import { useSettersQuery } from '../../hooks/useSetters';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const isValidDate = (date)=>{
   const contestDate = moment(date).startOf('day');
   const currentDate = moment().startOf('day');
@@ -50,12 +53,17 @@ const contestSchema = z.object({
 // const objectArray = ["Apple","Banana","Grapes","Papaya"];
 
 const CreateContest = () => {
+  const { data, error, isLoading } = useSettersQuery({});
+  const contestSubmit = useRef(null);
+  const navigate = useNavigate();
   const { register, handleSubmit, control, setValue, watch, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(contestSchema)
   }
   );
   const onSubmit = (data)=>{
-    console.log(data);
+    const onSuccess = () => toast.success("Contest Created Successfully",{theme:"light",autoClose:2000});
+    const onError = (err) => toast.error(err,{autoClose:2000}); 
+    // contestSubmit.current = toast.loading("Loading...",{autoClose:2000});
     // backend api /api/contest/create
     // fetch("http:localhost:7700/api/contest/create")
     const formData = {
@@ -80,6 +88,7 @@ const CreateContest = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(formData),
     })
     .then(async (res)=>{
@@ -90,14 +99,18 @@ const CreateContest = () => {
       throw new Error(response.message);
     })
     .then((data)=>{
-      console.log(data);
-      // redirection to manage contest
+      onSuccess();
+      setTimeout(()=>{
+        navigate(`/garage/contest/manage/${data.id}`);
+      },1000);
     })
     .catch((err)=>{
-      console.log(err);
+      onError(err);
     })
-    // console.log(data);
   } 
+
+  if (error) return <div>Request Failed</div>;
+	if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
@@ -216,11 +229,12 @@ const CreateContest = () => {
                               onRemove={(selected, item) => {
                                 setValue("setters", selected);
                               }}
-                              options={[
-                                { value: "chocolate", name: "Chocolate", id: "507f1f77bcf86cd799439011" },
-                                { value: "strawberry", name: "Strawberry", id: "507f1f77bcf86cd799439011" },
-                                { value: "vanilla", name: "Vanilla", id: "507f191e810c19729de860ea" }
-                              ]}
+                              options={data.map((setter)=>({
+                                value: setter.username,
+                                name: setter.username,
+                                id: setter._id
+                              }))}
+
                           />
                     </div>
                     );

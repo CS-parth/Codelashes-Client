@@ -4,11 +4,11 @@ import moment from "moment";
 
 export const ContestContext = createContext({
     Contest: {
-        name: "",
+        title: "",
         setters: [],
-        date: "",
+        startDate: "",
         startTime: "",
-        time: "",
+        endDate:"",
         duration: "",
         problems: []
     },
@@ -21,12 +21,12 @@ export const ContestProvider = ContestContext.Provider;
 // Creating a Wrapper Component
 const ContestContextProvider = ({children})=>{
     const { id } = useParams();
-    const [Contest,setContest] = useState({name: null,setters:[],date:null,startTime:null,time:null,duration:null,problems:[]});
+    const [Contest,setContest] = useState({title: null,setters:[],startDate:null,startTime:null,endDate:null,duration:null,problems:[]});
     const [isLoading,setisLoading] = useState(true);
     const [error,setError] = useState(null);
     const [isMeta,setIsMeta] = useState(false);
-    const [isStarted,setIsStarted] = useState();
-    const [isEnded,setIsEnded] = useState();
+    const [isStarted,setIsStarted] = useState(false);
+    const [isEnded,setIsEnded] = useState(false);
 
 
     // First : Fetch the meta data of the Contest and setIT
@@ -45,14 +45,14 @@ const ContestContextProvider = ({children})=>{
           throw new Error(response.message);
         })
         .then((data)=>{
-          const {name,setters,date,time,startTime,duration} = data;
+          const {name,setters,startDate,startTime,endDate,duration} = data;
           setContest((prevState)=>({
               ...prevState,
               name,
               setters,
-              date,
+              startDate,
               startTime,
-              time,
+              endDate,
               duration
           }));
           console.log("Successfully fetched meta data");
@@ -66,20 +66,26 @@ const ContestContextProvider = ({children})=>{
     },[id])
 
     useEffect(()=>{
-      function onContestStart(contestId){
-        if(contestId == id){
+      function onContestStart(obj){
+        console.log("Got " + obj + " OnContestStart");
+        if(obj.contestId == id){
+          console.log("Contest Startee from the event listersn");
           setIsStarted(true);
         }
       }
-      function onContestEnd(contestId){
-        if(contestId == id){
+      function onContestEnd(obj){
+        console.log("Got" + obj + " OnContestEnd");
+        if(obj.contestId == id){
+          console.log("Contest Ended from the event listerns");
           setIsEnded(true);
         }
       }
+      console.log("Setup of contest Listerners");
       socket.on("contestStarted",onContestStart);
       socket.on("contestEnded",onContestEnd);
   
       return ()=>{
+        console.log("Remove of contest Listerners");
         socket.off("contestStarted",onContestStart);
         socket.off("contestEnded",onContestEnd);
       }
@@ -89,15 +95,20 @@ const ContestContextProvider = ({children})=>{
       useEffect(()=>{ // if the user open the contest page during or after the contestStart (time>=contestStart)
         if(isMeta){
             // check contest time and
-            const currentTime = moment();
-            const contestStartTime = moment(Contest.startTime);
-            console.log(contestStartTime);
-            console.log(currentTime);
-            if (currentTime.isAfter(contestStartTime)) {
-              console.log("isStarted setted")
+            const [hours, minutes] = Contest.startTime.split(':').map(Number);
+            const contestStartTime = moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").set({ hours, minutes, seconds: 0 });
+            const contestEndTime = moment(Contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
+            console.log(contestEndTime);
+            console.log(moment());
+            if(moment().isAfter(contestEndTime)){
+              console.log("Contest ended");
+              setIsEnded(true);
+              setIsStarted(true);
+            }else if(moment().isAfter(contestStartTime)) {
+              console.log("isStarted setted");
               setIsStarted(true);
             }else{
-              console.log("Contest Not Started yet")
+              console.log("Contest Not Started yet");
             }
         }
       },[isMeta]);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import {useParams, NavLink } from 'react-router-dom'
 import useSession from '../../context/SessionContext';
+import { toast } from 'react-toastify';
 
 const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) => {
   // useParams to solve use parameters
@@ -12,7 +13,10 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
   const { User } = useSession();
 
   useEffect(()=> {
-    fetch(`http://localhost:7700/api/problem/${pid}`)
+    fetch(`http://localhost:7700/api/problem/${pid}`,{
+      method:"GET",
+      credentials:"include"
+    })
     .then(async (res)=>{
       // console.log(res);
       if(!res.ok){
@@ -56,12 +60,13 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
       body: JSON.stringify({ username: User.username, contest: id, roomId: roomId, problem: pid, code: formData.code}),
       headers: {
         "Content-Type": "application/json",
-      }
+      },
+      "credentials":"include"
     })
     .then(async (res)=>{
       const response = await res.json();
       if(res.ok){
-        return response
+        return response;
       }else{
         throw new Error(response.message);
       }
@@ -80,7 +85,28 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
   useEffect(()=>{
     const verdict = first;
     remove();
-    console.log(verdict);
+    console.log("verdict: ",verdict);
+    if(verdict){
+      switch (verdict.finalVerdict){
+        case "Accepted":
+          toast.success("Accepted");
+          break;
+        case "Wrong Answer":
+          toast.error("Wrong Answer");
+          break;
+        case "Runtime Error":
+          toast.warning("Runtime Error");
+          break;
+        case "Time Limit Excceded":
+          toast.warning("Time Limit Excceded");
+          break;
+        case "Compilation Error":
+          toast.warning("Compilation Error");
+          break;
+        default:
+          toast.warning("Unknown Error");
+      }
+    }
     if(refSubmit.current){
       setTimeout(()=>{
         refSubmit.current.removeAttribute("disabled");
@@ -121,19 +147,19 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Constraints</h2>
-                    <p className="text-gray-700">{Problem.Constraints}</p>
+                    <p className="text-gray-700">{Problem.constraints}</p>
                   </section>
         
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Input</h2>
-                    <p className="text-gray-700">{Problem.Input}</p>
+                    <p className="text-gray-700">{Problem.input}</p>
                   </section>
         
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Output</h2>
-                    <p className="text-gray-700">{Problem.Output}</p>
+                    <p className="text-gray-700">{Problem.output}</p>
                   </section>
         
                   
