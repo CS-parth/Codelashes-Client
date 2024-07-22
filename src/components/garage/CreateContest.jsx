@@ -29,10 +29,12 @@ const isValidTime = (time,date)=>{
 
 const contestSchema = z.object({
   contestName: z.string().min(4).max(50),
-  startDate: z.date().refine(
-    date=>isValidDate(date),
-    {message: 'The contest date can not be in past'}
-  ),
+  startDate: z.date()
+              // .refine(
+              //   date=>isValidDate(date),
+              //   {message: 'The contest date can not be in past'}
+              // )
+              ,
   startTime: z.string(),
   setters: z.array(z.object({
     value: z.string(),
@@ -42,13 +44,14 @@ const contestSchema = z.object({
   duration: z.string(),
   description: z.string().min(10).max(100),
   rules: z.string().min(10).max(100) 
-}).refine(
-  (data) => isValidTime(data.startTime,data.startDate),
-  {
-    message: 'At least need 1 hour gap before the start of the contest',
-    path: ['startTime']
-  }
-)
+})
+// .refine(
+//   (data) => isValidTime(data.startTime,data.startDate),
+//   {
+//     message: 'At least need 1 hour gap before the start of the contest',
+//     path: ['startTime']
+//   }
+// )
 
 // const objectArray = ["Apple","Banana","Grapes","Papaya"];
 
@@ -194,6 +197,8 @@ const CreateContest = () => {
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="duration">Duration : </label>
               <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' name="duration" {...register("duration")}>
+                <option value="00:05">00:05</option>
+                <option value="00:10">00:10</option>
                 <option value="00:30">00:30</option>
                 <option value="01:00">01:00</option>
                 <option value="01:30">01:30</option>

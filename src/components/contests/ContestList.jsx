@@ -49,9 +49,9 @@ const ContestList = ({passed}) => {
               ContestList
               .filter(contest => {
                 if (passed) {
-                  return moment().isAfter(contest.endDate);
+                  return moment().isAfter(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
                 } else {
-                  return moment().isBefore(contest.endDate);
+                  return moment().isBefore(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
                 }
               })
               .map(contest => (

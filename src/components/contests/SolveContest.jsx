@@ -13,7 +13,7 @@ const SolveContest = () => {
                 </div>
                 <div className="p-6">
                 <p className="mb-2"><span className="font-semibold">Duration:</span> {Contest.duration}</p>
-                <p><span className="font-semibold">Start Time:</span> {moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").day() + "/" + moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").month() + "/" + moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").year()} {Contest.startTime}</p>
+                <p><span className="font-semibold">Start Date:</span> {moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").date() + "/" + Number(moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").month() + 1) + "/" + moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").year()} <b>at</b> {Contest.startTime}</p>
                 </div>
             </div>
 
