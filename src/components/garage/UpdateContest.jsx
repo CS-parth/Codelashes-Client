@@ -7,7 +7,8 @@ import './fixInput.css';
 import Multiselect from 'multiselect-react-dropdown';
 import { useSettersQuery } from '../../hooks/useSetters';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useContestQuery } from '../../hooks/useContestQuery';
 const isValidDate = (date)=>{
   const contestDate = moment(date).startOf('day');
   const currentDate = moment().startOf('day');
@@ -27,6 +28,17 @@ const isValidTime = (time,date)=>{
   return true;
 }
 
+function isValidIndex(data){
+  let num = 0; // visiting bitmask
+  for(let i = 0;i < data.length;i++){
+    if(data[i]>=data.length) return false;
+    if(num&(1<<data[i])){
+      return false;
+    }
+    num|=(1<<data[i]);
+  }
+  return true;
+}
 const contestSchema = z.object({
   contestName: z.string().min(4).max(50),
   startDate: z.date()
@@ -43,7 +55,12 @@ const contestSchema = z.object({
   })),
   duration: z.string(),
   description: z.string().min(10).max(100),
-  rules: z.string().min(10).max(100) 
+  rules: z.string().min(10).max(100),
+  problems: z.array(z.number().gte(0))
+    .optional()
+    .refine(data => isValidIndex(data), {
+      message: "No two problems can have same indexing"
+    })
 })
 // .refine(
 //   (data) => isValidTime(data.startTime,data.startDate),
@@ -55,20 +72,27 @@ const contestSchema = z.object({
 
 // const objectArray = ["Apple","Banana","Grapes","Papaya"];
 
-const CreateContest = () => {
-  const { data, error, isLoading } = useSettersQuery({});
+const UpdateContest = () => {
+  const { data:settersData, error:settersError, isLoading:settersisLoading } = useSettersQuery({refetchOnWindowFocus:false});
+  const {id} = useParams();
+  const { data:contestData,error:contestError,isLoading:contestisLoading } = useContestQuery(id,{refetchOnWindowFocus:false});
   const contestSubmit = useRef(null);
   const navigate = useNavigate();
   const { register, handleSubmit, control, setValue, watch, formState: { errors, isSubmitting } } = useForm({
+    defaultValues: {
+      setters: contestData?.setters.map((setter)=>({
+        value: setter.username,
+        name: setter.username,
+        id: setter._id
+      }))
+    },
     resolver: zodResolver(contestSchema)
   }
   );
   const onSubmit = (data)=>{
-    const onSuccess = () => toast.success("Contest Created Successfully",{theme:"light",autoClose:2000});
+    const onSuccess = () => toast.success("Contest Updated Successfully",{theme:"light",autoClose:2000});
     const onError = (err) => toast.error(err,{autoClose:2000}); 
-    // contestSubmit.current = toast.loading("Loading...",{autoClose:2000});
-    // backend api /api/contest/create
-    // fetch("http:localhost:7700/api/contest/create")
+    // console.log(data);
     const formData = {
       "name": "",
       "setters": [],
@@ -76,7 +100,8 @@ const CreateContest = () => {
       "startTime": "",
       duration: "",
       description: "",
-      rules: ""
+      rules: "",
+      problems: "",
     }
     formData.name = data.contestName;
     formData.setters = data.setters.map((elem)=>elem.id);
@@ -85,8 +110,9 @@ const CreateContest = () => {
     formData.startTime = data.startTime;
     formData.description = data.description;
     formData.rules = data.rules;
+    formData.problems = data.problems;
     console.log(formData);
-    fetch("http://localhost:7700/api/contest/create",{
+    fetch(`http://localhost:7700/api/contest/edit/${id}`,{
       method:"POST",
       headers: {
         "Content-Type": "application/json",
@@ -103,18 +129,18 @@ const CreateContest = () => {
     })
     .then((data)=>{
       onSuccess();
-      setTimeout(()=>{
-        navigate(`/garage/contest/manage/${data.id}`);
-      },1000);
+      // setTimeout(()=>{
+      //   navigate(`/garage/contest/manage/${data.id}`);
+      // },1000);
     })
     .catch((err)=>{
       onError(err);
     })
   } 
 
-  if (error) return <div>Request Failed</div>;
-	if (isLoading) return <div>Loading...</div>;
-
+	if (settersisLoading || contestisLoading) return <div>Loading...</div>;
+  if (settersError || contestError) return <div>Request Failed</div>;
+  console.log(errors);
   return (
     <>
     <div className='mt-5 flex flex-col justify-center items-center font-extrabold text-2xl'>Contest Details</div>
@@ -122,7 +148,8 @@ const CreateContest = () => {
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="contestName">Name of the Contest : </label>
               <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' name='contestName' 
-              {...register("contestName")}
+                  defaultValue={contestData.name}
+                  {...register("contestName")}
                 aria-invalid={errors.contestName ? "true" : "false"}
               />
               {errors.contestName && (
@@ -132,12 +159,15 @@ const CreateContest = () => {
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="startDate">Start Date : </label>
               <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' type='date' name="startDate" 
+              defaultValue={moment(contestData.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").format("YYYY-MM-DD")}
               {...register("startDate",{
                 valueAsDate:true
               })}
               />
               <span className='ml-5 mr-5 text-white' >  at  </span>         
-              <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' name="startTime" {...register("startTime")}>
+              <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' 
+              defaultValue={contestData.startTime}
+              name="startTime" {...register("startTime")}>
               <option value="00:00">00:00</option>
               <option value="00:30">00:30</option>
               <option value="01:00">01:00</option>
@@ -196,7 +226,9 @@ const CreateContest = () => {
             </div>
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="duration">Duration : </label>
-              <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' name="duration" {...register("duration")}>
+              <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' 
+                defaultValue={contestData.duration}
+                name="duration" {...register("duration")}>
                 <option value="00:05">00:05</option>
                 <option value="00:10">00:10</option>
                 <option value="00:30">00:30</option>
@@ -226,7 +258,7 @@ const CreateContest = () => {
                             <Multiselect
                               style={ {chips: { background: "#023e8a" }, searchBox: { border: "none", "borderBottom": "1px solid blue", "borderRadius": "0px" } }}
                               {...field}
-                              inputRef={ref}
+                              
                               displayValue="name"
                               onSelect={(selected, item) => {
                                 setValue("setters", selected);
@@ -234,12 +266,17 @@ const CreateContest = () => {
                               onRemove={(selected, item) => {
                                 setValue("setters", selected);
                               }}
-                              options={data.map((setter)=>({
+                              options={settersData.map((setter)=>({
                                 value: setter.username,
                                 name: setter.username,
                                 id: setter._id
                               }))}
-
+                              selectedValues={contestData.setters.map((setter)=>({
+                                value: setter.username,
+                                name: setter.username,
+                                id: setter._id
+                              }))}
+                              inputRef={ref}
                           />
                     </div>
                     );
@@ -252,7 +289,9 @@ const CreateContest = () => {
             <div className='m-5'>
               <div className='flex items-center w-full'>
                 <label className='mr-5 text-white text-xl font-bold' htmlFor="description">Description : </label>
-                <textarea className='text-white border bg-[#023e8a] rounded-md p-1 pl-4 caret-white w-3/5' name='description' {...register("description")}/>
+                <textarea className='text-white border bg-[#023e8a] rounded-md p-1 pl-4 caret-white w-3/5' 
+                defaultValue={contestData.description}
+                name='description' {...register("description")}/>
               </div>
               {errors.description && (
                 <div className='text-red-500'>{errors.description.message}</div>
@@ -261,16 +300,37 @@ const CreateContest = () => {
             <div className='m-5'>
               <div className='flex items-center w-full'>
                 <label className='mr-5 text-white text-xl font-bold' htmlFor="rules">Rules : </label>
-                <textarea className='text-white border bg-[#023e8a] p-1 pl-4 rounded-md w-3/5' name='rules' {...register("rules")}/>
+                <textarea className='text-white border bg-[#023e8a] p-1 pl-4 rounded-md w-3/5'
+                defaultValue={contestData.rules}
+                name='rules' {...register("rules")}/>
               </div>
                 {errors.rules && (
                   <div className='text-red-500'>{errors.rules.message}</div>
                 )}
             </div>
+            {/*Create a array of vailable problems according to the given order*/}
+            {
+              contestData.problems.map((problem,index)=>(
+                <div>
+                  <div>
+                    <label htmlFor={problem.title}>{problem.title}</label>
+                    <input name={problem.title} type="number" 
+                    {...register(`problems.${index}`,{valueAsNumber:true})}
+                    />
+                    </div>
+                    {errors.problems && errors.problems[index] && (
+                      <div className='text-red-500'>{errors.problems[index].message}</div>
+                    )}
+                </div>
+              ))
+            }
+            {errors.problems?.root && (
+              <div className='text-red-500'>{errors.problems?.root.message}</div>
+            )}
             <button className='m-5 bg-[#0077b6] rounded-xl p-3 w-40' type='submit'>Submit</button>
         </form>
     </> 
   )
 }
 
-export default CreateContest
+export default UpdateContest

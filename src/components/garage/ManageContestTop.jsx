@@ -7,6 +7,7 @@ const ManageContestTop = () => {
   const { data, error, isLoading } = useContestQuery(id,{refetchOnWindowFocus: false});
   if (error) return <div>Request Failed</div>;
 	if (isLoading) return <div>Loading...</div>;
+  // console.log(data);
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className="bg-white shadow-md rounded-b-lg overflow-hidden mb-8">
@@ -15,7 +16,7 @@ const ManageContestTop = () => {
           </div>
           <div className="p-6">
             <p className="mb-2"><span className="font-semibold">Duration:</span> {data.duration}</p>
-            <p><span className="font-semibold">Start Time:</span> {moment(data.startDate).day() + "/" + moment(data.startDate).month() + "/" + moment(data.startDate).year()} {data.startTime}</p>
+            <p><span className="font-semibold">Start Date:</span> {moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").date() + "/" + Number(moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").month() + 1) + "/" + moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").year()} <b>at</b> {data.startTime}</p>
           </div>
       </div>
 
@@ -26,7 +27,7 @@ const ManageContestTop = () => {
           <div className="p-6">
             <ul className=''>
               {
-                data.setters.map((setter)=> <li key={setter._id}>{setter.username}</li> )
+                data?.setters.map((setter)=> <li key={setter._id}>{setter.username}</li> )
               }
             </ul>
           </div>
@@ -45,7 +46,7 @@ const ManageContestTop = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {data.problems.map((problem, index) => (
+                {data?.problems.map((problem, index) => (
                     <tr key={index} className="border-b">
                     <td className="px-4 py-2">{String.fromCharCode(65 + index)} - {problem.title} </td>
                     <td className="px-4 py-2">{problem.difficulty}</td>

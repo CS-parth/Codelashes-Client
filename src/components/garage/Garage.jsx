@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
-const GarageLayout = () => {
+const Garage = () => {
   return (
     <div>
         <div className='flex flex-row w-9/12 m-auto mt-10 font-bold text-lg'>
@@ -15,4 +15,4 @@ const GarageLayout = () => {
   )
 }
 
-export default GarageLayout
+export default Garage

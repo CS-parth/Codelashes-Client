@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useContest } from '../../context/ContestContext';
 import { useLocation } from 'react-router-dom';
+import useSession from '../../context/SessionContext'
+import { toast } from 'react-toastify';
 
-const Submit = () => {
+const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) => {
+  const refSubmit = useRef();
   let { state } = useLocation();
   const initialSelectedTask = state?.initialSelectedTask || '';
   const { Contest, isLoading, error } = useContest();
+  const { User } = useSession();
   const [selectedTask, setSelectedTask] = useState(initialSelectedTask || '');
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [sourceCode, setSourceCode] = useState('');
@@ -13,10 +17,68 @@ const Submit = () => {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e)=>{
     e.preventDefault();
-    console.log({ selectedTask, selectedLanguage, sourceCode });
-  };
+    // console.log(formData);
+    // make request to the backend
+    fetch("http://localhost:7700/api/judge/submit",{
+      method: "POST",
+      body: JSON.stringify({ username: User.username, contest: Contest._id, roomId: roomId, problem: selectedTask, code: sourceCode}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      "credentials":"include"
+    })
+    .then(async (res)=>{
+      const response = await res.json();
+      if(res.ok){
+        return response;
+      }else{
+        throw new Error(response.message);
+      }
+    })
+    .then((data)=>{
+      setJobId(data.jobId);
+      if(refSubmit.current){
+        refSubmit.current.setAttribute("disabled",true);
+      } 
+    })
+    .catch((err)=>{
+      console.error(err);
+    })
+  }
+
+  useEffect(()=>{
+    const verdict = first;
+    remove();
+    console.log("verdict: ",verdict);
+    if(verdict){
+      switch (verdict.finalVerdict){
+        case "Accepted":
+          toast.success("Accepted");
+          break;
+        case "Wrong Answer":
+          toast.error("Wrong Answer");
+          break;
+        case "Runtime Error":
+          toast.warning("Runtime Error");
+          break;
+        case "Time Limit Excceded":
+          toast.warning("Time Limit Excceded");
+          break;
+        case "Compilation Error":
+          toast.warning("Compilation Error");
+          break;
+        default:
+          toast.warning("Unknown Error");
+      }
+    }
+    if(refSubmit.current){
+      setTimeout(()=>{
+        refSubmit.current.removeAttribute("disabled");
+      },2000);
+    } 
+  },[verdictTrigger])
   
   useEffect(() => {
     if (initialSelectedTask) {
@@ -65,6 +127,7 @@ const Submit = () => {
               <option value="java">Java</option>
               <option value="python">Python</option>
               <option value="cpp">C++</option>
+              <option value="c">C</option>
             </select>
           </div>
 
@@ -86,7 +149,8 @@ const Submit = () => {
             <button
               type="submit"
               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
+              onSubmit={handleSubmit}
+              >
               Submit
             </button>
           </div>

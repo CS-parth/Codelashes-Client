@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-export const useRankingQuery = (id, options) => { 
-    const getRanking = async (contestId)=>{
-        const res = await fetch(`http://localhost:7700/api/result/${contestId}`,{
+export const useSetterProblemQuery = (username,contestId, options) => { 
+    const getSetterProblem = async (username,contestId)=>{
+        const res = await fetch(`http://localhost:7700/api/problem/managable?username=${username}&contestId=${contestId}`,{
             method:"GET",
             credentials:"include"
        });
@@ -14,13 +14,12 @@ export const useRankingQuery = (id, options) => {
 
     const queryOptions = {
         staleTime: 300,
-	    enabled: !!id,
         ...options,
     };
 
     return useQuery(
-        ['Ranking', id], // query keys act as dependencies
-        () => getRanking(id),
+        ['SetterProblem', username,contestId], // query keys act as dependencies
+        () => getSetterProblem(username,contestId),
         queryOptions
     );
 };

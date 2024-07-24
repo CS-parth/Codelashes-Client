@@ -26,6 +26,8 @@ const ProblemList = () => {
       })
     }
   }, [User]);
+  if(isLoading) return <div>Loading ....</div>
+  if(error) return <div>Error</div>
   return (
     <table className="w-9/12 m-auto text-black" style={{emptyCells: "show"}}>
       <thead>

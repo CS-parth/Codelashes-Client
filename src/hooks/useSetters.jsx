@@ -16,7 +16,7 @@ export const useSettersQuery = (options) => {
     };
 
     return useQuery(
-        [],
+        ['Setters'],
         () => getSetters(),
         queryOptions
     );

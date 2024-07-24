@@ -8,6 +8,7 @@ import './changeInputTypeFile.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import useSession from '../../context/SessionContext'
+import { useProblemQuery } from '../../hooks/useProblemQuery'
 const ACCEPTED_ZIP_TYPES = ["application/zip"]
 
 const problemSchema = z.object({
@@ -18,7 +19,7 @@ const problemSchema = z.object({
   sampleTestcase: z.string(),
   memory: z.number(),
   time: z.number(),
-  title: z.string().min(3).max(30),
+  title: z.string().min(3).max(50),
   difficulty: z.number().gte(1).lte(10),
   testcase: z
             .any()
@@ -43,7 +44,8 @@ const problemSchema = z.object({
 })
 
 const ManageContestCreateProblem = () => {
-  const {id} = useParams();
+  const {id,pid} = useParams();
+  const {data:problemData,isLoading,error} = useProblemQuery(pid,{refetchOnWindowFocus:false});
   const {User} = useSession();
   const navigate = useNavigate();
   const problemStatementRef = useRef(null);
@@ -56,10 +58,10 @@ const ManageContestCreateProblem = () => {
   }
   );
   const onSubmit = (data)=>{
-    const onSuccess = () => toast.success("Problem Created Successfully");
+    const onSuccess = () => toast.success("Problem Edited Successfully");
     const onError = (err) => toast.error(err);
-    data.contest = id;
-    data.username = User.username;
+    // data.contest = id;
+    // data.username = User.username;
     const testcase = data.testcase[0];
     const answer = data.answer[0];
     delete data.testcase;
@@ -75,7 +77,7 @@ const ManageContestCreateProblem = () => {
     if (answer) {
       formData.append('answer', answer);
     }
-    fetch("http://localhost:7700/api/problem/create", {
+    fetch(`http://localhost:7700/api/problem/edit/${pid}`, {
       method: "POST",
       body: formData
     })
@@ -88,19 +90,21 @@ const ManageContestCreateProblem = () => {
     })
     .then((response)=>{
       onSuccess();
-      setTimeout(()=>{
-        navigate(`/garage/contest/manage/${id}`);
-      },1000);
+      // setTimeout(()=>{
+      //   navigate(`/garage/contest/manage/${id}`);
+      // },1000);
     })
     .catch((err)=>{
       onError(err);
     })
   } 
+  if(isLoading) return <div>Loading ...</div>
+  if(error) return <div>Request Failed</div>
   return (
     <form className='p-5 bg-[#03045e] flex flex-col justify-center items-start gap-6 outline-grey w-9/12 m-auto mt-10 rounded-lg' onSubmit={handleSubmit(onSubmit)}>
       <div className='m-5'>
         <label className='mr-5 text-white text-xl font-bold' htmlFor="title">Title : </label>
-        <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4'
+        <input defaultValue={problemData.title} className='text-white border bg-[#023e8a] rounded-md p-1 pl-4'
           {...register("title")}
           name='title' type="text" />
           {errors.title && (
@@ -117,7 +121,7 @@ const ManageContestCreateProblem = () => {
                 <Editor
                     apiKey="dms9mfu4v0w11nkg5nl3bc5yf9rwb1oml1qot8yesdvzlwn5"
                     onInit={(evt, editor) => problemStatementRef.current = editor}
-                    initialValue='<p>This is the initial content of the editor.</p>'
+                    initialValue={problemData.problemStatement}
                     init={{
                       height: 200,
                       menubar: false,
@@ -151,7 +155,7 @@ const ManageContestCreateProblem = () => {
                 <Editor
                     apiKey="dms9mfu4v0w11nkg5nl3bc5yf9rwb1oml1qot8yesdvzlwn5"
                     onInit={(evt, editor) => inputRef.current = editor}
-                    initialValue='<p>This is the initial content of the editor.</p>'
+                    initialValue={problemData.input}
                     init={{
                       height: 200,
                       menubar: false,
@@ -185,7 +189,7 @@ const ManageContestCreateProblem = () => {
                 <Editor
                     apiKey="dms9mfu4v0w11nkg5nl3bc5yf9rwb1oml1qot8yesdvzlwn5"
                     onInit={(evt, editor) => ouputRef.current = editor}
-                    initialValue='<p>This is the initial content of the editor.</p>'
+                    initialValue={problemData.output}
                     init={{
                       height: 200,
                       menubar: false,
@@ -219,7 +223,7 @@ const ManageContestCreateProblem = () => {
                 <Editor
                     apiKey="dms9mfu4v0w11nkg5nl3bc5yf9rwb1oml1qot8yesdvzlwn5"
                     onInit={(evt, editor) => sampleTestcaseRef.current = editor}
-                    initialValue='<p>This is the initial content of the editor.</p>'
+                    initialValue={problemData.sampleTestcase}
                     init={{
                       height: 200,
                       menubar: false,
@@ -253,7 +257,7 @@ const ManageContestCreateProblem = () => {
                 <Editor
                     apiKey="dms9mfu4v0w11nkg5nl3bc5yf9rwb1oml1qot8yesdvzlwn5"
                     onInit={(evt, editor) => constraintsRef.current = editor}
-                    initialValue='<p>This is the initial content of the editor.</p>'
+                    initialValue={problemData.constraints}
                     init={{
                       height: 200,
                       menubar: false,
@@ -280,6 +284,7 @@ const ManageContestCreateProblem = () => {
           {...register("memory",{
             valueAsNumber:true
           })}
+          defaultValue={problemData.memory}
           name='memory' type="number" />
           {errors.memory && (
             <div className='text-red-500'>{errors.memory.message}</div>
@@ -291,6 +296,7 @@ const ManageContestCreateProblem = () => {
           {...register("time",{
             valueAsNumber:true
           })}
+          defaultValue={problemData.time}
           name='time' type="number" />
           {errors.time && (
             <div className='text-red-500'>{errors.time.message}</div>
@@ -302,28 +308,29 @@ const ManageContestCreateProblem = () => {
           {...register("difficulty",{
             valueAsNumber:true
           })}
+          defaultValue={problemData.difficulty}
           name='difficulty' type="number" />
           {errors.difficulty && (
             <div className='text-red-500'>{errors.difficulty.message}</div>
           )}
       </div>
       <div className='m-5'>
-          <label className='mr-5 text-white text-xl font-bold' htmlFor="difficulty">Upload a zip of testcases : </label>
-          <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
-          {...register("testcase")}
-          name='testcase' type="file" />
-          {errors.testcase && (
+        <label className='mr-5 text-white text-xl font-bold' htmlFor="difficulty">Upload a zip of testcases : </label>
+        <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
+        {...register("testcase")}
+        name='testcase' type="file" />
+        {errors.testcase && (
             <div className='text-red-500'>{errors.testcase.message}</div>
-          )}
+        )}
       </div>
       <div className='m-5'>
-          <label className='mr-5 text-white text-xl font-bold' htmlFor="difficulty">Upload a zip of answers : </label>
-          <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
-          {...register("answer")}
-          name='answer' type="file" />
-          {errors.testcase && (
-            <div className='text-red-500'>{errors.answer.message}</div>
-          )}
+            <label className='mr-5 text-white text-xl font-bold' htmlFor="difficulty">Upload a zip of answers : </label>
+            <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
+            {...register("answer")}
+            name='answer' type="file" />
+            {errors.testcase && (
+                <div className='text-red-500'>{errors.answer.message}</div>
+            )}
       </div>
       <button
       className='m-5 bg-[#0077b6] rounded-xl p-3 w-40'
@@ -349,7 +356,7 @@ const ManageContestCreateProblem = () => {
           "sampleTestcase",
           sampleTestcaseRef.current.getContent({ format: "html" })
         );
-      }}>Submit</button>
+      }}>Edit</button>
       {errors && console.log(errors)}
     </form>
   )

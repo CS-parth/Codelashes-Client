@@ -21,7 +21,7 @@ const Contest = (props) => {
         }</td>
         <td>{
             <ul>
-                <li>{moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").date() + "/" + Number(moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").month() + 1) + "/" + moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").year()}</li>
+                <li>{moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").date()+"/"+Number(moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").month()+1)+"/"+moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").year()}</li>
                 <li>{props.startTime}</li>
             </ul>
 

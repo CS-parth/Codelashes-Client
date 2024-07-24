@@ -33,13 +33,19 @@ import { SocketContextProvider } from './context/SocketContext.jsx';
 import ResultLayout from './components/layouts/ResultLayout.jsx';
 import MySubmissions from './components/results/MySubmissions.jsx';
 import AllSubmissions from './components/results/AllSubmissions.jsx';
-import GarageLayout from './components/garage/GarageLayout.jsx'
 import CreateContest from './components/garage/CreateContest.jsx';
 import ManageContestLayout from './components/garage/ManageContestLayout';
 import ManageContestCreateProblem from './components/garage/ManageContestCreateProblem.jsx';
 import ManageContestSettings from './components/garage/ManageContestSettings.jsx';
 import ManageContestTop from './components/garage/ManageContestTop.jsx';
-
+import SubmitWrapper from './components/submit/SubmitWrapper.jsx';
+import { ManageContest } from './components/garage/ManageContest.jsx';
+import GarageLayout from './components/layouts/GarageLayout.jsx'
+import Garage from './components/garage/Garage.jsx'
+import UpdateContestLayout from './components/layouts/UpdateContestLayout.jsx';
+import UpdateProblem from './components/garage/UpdateProblem.jsx';
+import UpdateContest from './components/garage/UpdateContest.jsx';
+import EditProblem from './components/garage/EditProblem.jsx';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -48,7 +54,7 @@ const router = createBrowserRouter(
         <Route path="problems" element={<Problems />} />
         <Route path="contests" element={<Contests />} />
         <Route path="blogs" element={<Blogs />} />
-        <Route path="garage" element={<GarageLayout />} />
+        <Route path="garage" element={<Garage />} />
       </Route>
 
       <Route path="login" element={<Login />} />
@@ -58,7 +64,7 @@ const router = createBrowserRouter(
         <Route index element={<SolveContest />} />
         <Route path="task" element={<Task />} />
         <Route path="task/:pid" element={<SolveProblemWrapper />} />
-        <Route path="submit" element={<Submit />} />
+        <Route path="submit" element={<SubmitWrapper />} />
         <Route path="results" element={<ResultLayout />}>
           <Route index element={<MySubmissions/>}/>
           <Route path="all" element={<AllSubmissions/>}/>
@@ -67,14 +73,21 @@ const router = createBrowserRouter(
         <Route path="editorial" element={<Editorial />} />
         <Route path="discuss" element={<Discuss />} />
       </Route>
-
-      <Route path='garage/contest/create' element={<CreateContest/>}/>
+      <Route path='/garage' element={<GarageLayout/>}>
+        <Route path='contest/create' element={<CreateContest/>}/>
+        <Route path='contest/manage' element={<ManageContest/>}/>
+      </Route>
       <Route path="garage/contest/manage/:id" element={<ManageContestLayout/>}>
         <Route index element={<ManageContestTop/>}/>
         <Route path="create" element={<ManageContestCreateProblem/>}/>
         <Route path="update" element={<ManageContestSettings/>}/>
       </Route>
-      </>
+      <Route path='garage/contest/manage/:id/update' element={<UpdateContestLayout/>}>
+          <Route path='problem' element={<UpdateProblem/>}/>
+          <Route path='contest' element={<UpdateContest/>}/>
+          <Route path='problem/:pid' element={<EditProblem/>}/>
+      </Route>
+    </>
   )
 );
 
