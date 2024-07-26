@@ -4,6 +4,7 @@ import moment from "moment";
 
 export const ContestContext = createContext({
     Contest: {
+        _id:"",
         title: "",
         setters: [],
         startDate: "",
@@ -48,6 +49,7 @@ const ContestContextProvider = ({children})=>{
           const {name,setters,startDate,startTime,endDate,duration} = data;
           setContest((prevState)=>({
               ...prevState,
+              _id:id,
               name,
               setters,
               startDate,

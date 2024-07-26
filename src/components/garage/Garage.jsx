@@ -10,6 +10,9 @@ const Garage = () => {
             <div className='flex justify-center items-center m-auto h-40 bg-bar_base_light w-56 rounded-md'>
                 <NavLink to="contest/manage">Manage Contest</NavLink>
             </div>
+            <div className='flex justify-center items-center m-auto h-40 bg-bar_base_light w-56 rounded-md'>
+                <NavLink to="blog/create">Create Blog</NavLink>
+            </div>
         </div>
     </div>
   )

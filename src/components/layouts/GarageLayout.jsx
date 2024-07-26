@@ -1,19 +1,22 @@
 import Header from '../header/Header'
-import Footer from '../footer/Footer'
 import { Outlet } from 'react-router-dom'
 import '../../../public/css/MainLayout.css';
-import GarageHeader from '../header/GarageHeader';
-import GarageFooter from '../footer/GarageFooter';
+import Footer from '../footer/Footer';
 
 const Layout = () => {
-
+  const list = [
+    {title:"Create Contest",nav:"contest/create"},
+    {title:"Manage Contest",nav:"contest/manage"},
+    {title:"Create Blog",nav:"blog/create"},
+    {title:"Manage Blog",nav:"blog/manage"},
+  ]
   return (
       <div className="flex flex-col min-h-screen">
-        <GarageHeader />
+        <Header list={list}/>
         <div className="flex-grow">
           <Outlet />
         </div>
-        <GarageFooter />
+        <Footer color={"bar_base"}/>
       </div>
   );
 };

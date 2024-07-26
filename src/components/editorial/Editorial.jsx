@@ -23,13 +23,13 @@ const Editorial = () => {
           {Contest.problems.map((problem, index) => (
             <tr key={problem.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
               <td className="border border-gray-300 px-4 py-2">
-                <Link to={`/contests/${Contest.id}/tasks/${problem.id}`} className="text-blue-600 hover:underline">
-                  {problem.name}
+                <Link to={`../task/${problem._id}`} className="text-blue-600 hover:underline">
+                  {problem.title}
                 </Link>
               </td>
               <td className="border border-gray-300 px-4 py-2 text-center">{problem.difficulty}</td>
               <td className="border border-gray-300 px-4 py-2 text-center">
-                <Link to={`/contests/${Contest.id}/tasks/${problem.id}/editorial`} className="text-blue-600 hover:underline">
+                <Link to={`${problem._id}`} className="text-blue-600 hover:underline">
                   Editorial
                 </Link>
               </td>

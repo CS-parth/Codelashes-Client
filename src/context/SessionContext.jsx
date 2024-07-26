@@ -47,7 +47,7 @@ export const SessionContextProvider = ({ children }) => {
     .then((response) => {
       if (response.ok){
         updateUser(null, null);
-        window.location.reload();
+        window.location.href = "/login";
       } else {
         console.error('Logout was not successful');
       }

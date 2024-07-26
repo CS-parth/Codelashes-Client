@@ -18,7 +18,7 @@ const problemSchema = z.object({
   sampleTestcase: z.string(),
   memory: z.number(),
   time: z.number(),
-  title: z.string().min(3).max(30),
+  title: z.string().min(3).max(50),
   difficulty: z.number().gte(1).lte(10),
   testcase: z
             .any()

@@ -1,14 +1,22 @@
 import React, { useContext, useEffect,useState } from 'react'
 import Problem from './Problem'
 import useSession from '../../context/SessionContext';
-const ProblemList = () => {
+const ProblemList = ({status,difficulty,acceptance}) => {
   const [problemList,setproblemList] = useState(null);
   const [isLoading,setisLoading] = useState(true);
   const [error,setError] = useState(null);
-  const {User} = useSession();
+  // const {User} = useSession();
   useEffect(() => {
-    if(User){
-      fetch(`http://localhost:7700/api/problem/all?username=${User.username}`)
+    // if(User){
+      const queryParams = new URLSearchParams({
+        ...(status && { status }),
+        ...(difficulty && { difficulty }),
+        ...(acceptance && { acceptance })
+      });
+      fetch(`http://localhost:7700/api/problem/all?${queryParams}`,{
+        method:"GET",
+        credentials:"include"
+      })
       .then(async (res)=>{
         const result = await res.json();
         if(res.ok){
@@ -24,8 +32,8 @@ const ProblemList = () => {
         setError(err.message);
         setisLoading(false);
       })
-    }
-  }, [User]);
+    // }
+  }, [status,difficulty,acceptance]);
   if(isLoading) return <div>Loading ....</div>
   if(error) return <div>Error</div>
   return (
@@ -54,6 +62,7 @@ const ProblemList = () => {
             title={problem.title} 
             acceptance={problem.acceptance} 
             difficulty={problem.difficulty} 
+            editorial={problem.editorial}
           />
         ))
       )}

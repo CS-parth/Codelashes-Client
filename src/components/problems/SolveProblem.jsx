@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import {useParams, NavLink } from 'react-router-dom'
 import useSession from '../../context/SessionContext';
 import { toast } from 'react-toastify';
-
+import parse from 'html-react-parser';
 const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) => {
   // useParams to solve use parameters
   const { id,pid } = useParams();
@@ -141,32 +141,32 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Problem Statement</h2>
-                    <p className="text-gray-700">{Problem.problemStatement}</p>
+                    <p className="text-gray-700">{parse(Problem.problemStatement)}</p>
                   </section>
         
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Constraints</h2>
-                    <p className="text-gray-700">{Problem.constraints}</p>
+                    <p className="text-gray-700">{parse(Problem.constraints)}</p>
                   </section>
         
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Input</h2>
-                    <p className="text-gray-700">{Problem.input}</p>
+                    <p className="text-gray-700">{parse(Problem.input)}</p>
                   </section>
         
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Output</h2>
-                    <p className="text-gray-700">{Problem.output}</p>
+                    <p className="text-gray-700">{parse(Problem.output)}</p>
                   </section>
         
                   
                   <section>
                     <h2 className="text-lg font-semibold mb-2">Sample Testcase</h2>
                     <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-                      <code>{Problem.sampleTestcase}</code>
+                      <code>{parse(Problem.sampleTestcase)}</code>
                     </pre>
                   </section>
                 </div>

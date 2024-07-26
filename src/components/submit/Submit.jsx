@@ -13,12 +13,34 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
   const [selectedTask, setSelectedTask] = useState(initialSelectedTask || '');
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [sourceCode, setSourceCode] = useState('');
-
+  const [formError,setError] = useState({
+    task:"",
+    language:"",
+  });
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
   const handleSubmit = (e)=>{
     e.preventDefault();
+    setError((prevData)=>({
+      task:"",
+      language:""
+    }))
+    // Run Validation 
+    if(selectedTask==""){
+      setError((prevData)=>({
+      ...prevData,
+      task:"Select a task"
+      }));
+      return;
+    }
+    if(selectedLanguage == ""){
+      setError((prevData)=>({
+        ...prevData,
+        language:"Select a language"
+        }));
+      return;
+    }
     // console.log(formData);
     // make request to the backend
     fetch("http://localhost:7700/api/judge/submit",{
@@ -111,6 +133,8 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
                 </option>
               ))}
             </select>
+            {formError.task && 
+              <span className='text-red-600'>{formError.task}</span>}
           </div>
 
           <div className="mb-4">
@@ -129,6 +153,8 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
               <option value="cpp">C++</option>
               <option value="c">C</option>
             </select>
+            {formError.language && 
+              <span className='text-red-600'>{formError.language}</span>}
           </div>
 
           <div className="mb-4">
@@ -150,6 +176,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
               type="submit"
               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onSubmit={handleSubmit}
+              ref={refSubmit}
               >
               Submit
             </button>

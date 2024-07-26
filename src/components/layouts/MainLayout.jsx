@@ -4,14 +4,20 @@ import { Outlet } from 'react-router-dom'
 import '../../../public/css/MainLayout.css';
 
 const Layout = () => {
-
+  const list = [
+    {title:"Problem",nav:"/problems"},
+    {title:"Contests",nav:"/contests"},
+    {title:"Blogs",nav:"/blogs"},
+    {title:"Sessions",nav:"/sessions"},
+    {title:"Garage",nav:"/garage"}
+  ];
   return (
       <div className="flex flex-col min-h-screen">
-        <Header />
+        <Header list={list}/>
         <div className="flex-grow">
           <Outlet />
         </div>
-        <Footer />
+        <Footer color={"bar_base"}/>
       </div>
   );
 };

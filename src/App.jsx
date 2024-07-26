@@ -34,7 +34,7 @@ import ResultLayout from './components/layouts/ResultLayout.jsx';
 import MySubmissions from './components/results/MySubmissions.jsx';
 import AllSubmissions from './components/results/AllSubmissions.jsx';
 import CreateContest from './components/garage/CreateContest.jsx';
-import ManageContestLayout from './components/garage/ManageContestLayout';
+import ManageContestLayout from './components/layouts/ManageContestLayout.jsx';
 import ManageContestCreateProblem from './components/garage/ManageContestCreateProblem.jsx';
 import ManageContestSettings from './components/garage/ManageContestSettings.jsx';
 import ManageContestTop from './components/garage/ManageContestTop.jsx';
@@ -46,6 +46,18 @@ import UpdateContestLayout from './components/layouts/UpdateContestLayout.jsx';
 import UpdateProblem from './components/garage/UpdateProblem.jsx';
 import UpdateContest from './components/garage/UpdateContest.jsx';
 import EditProblem from './components/garage/EditProblem.jsx';
+import Sessions from './components/sessions/Sessions.jsx'
+import ManageContestEditorial from './components/garage/ManageContestEditorial.jsx';
+import ManageContestAddEditorial from './components/garage/ManageContestAddEditorial.jsx';
+import ProblemEditorial from './components/editorial/ProblemEditorial.jsx';
+import CreateBlog from './components/garage/CreateBlog.jsx';
+
+import {
+  LiveblocksProvider,
+  RoomProvider,
+} from "@liveblocks/react";
+import DiscussWrapper from './components/discuss/DiscussWrapper.jsx';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -54,6 +66,7 @@ const router = createBrowserRouter(
         <Route path="problems" element={<Problems />} />
         <Route path="contests" element={<Contests />} />
         <Route path="blogs" element={<Blogs />} />
+        <Route path="sessions" element={<Sessions />} />
         <Route path="garage" element={<Garage />} />
       </Route>
 
@@ -71,16 +84,20 @@ const router = createBrowserRouter(
         </Route>
         <Route path="standings" element={<Standing />} />
         <Route path="editorial" element={<Editorial />} />
-        <Route path="discuss" element={<Discuss />} />
+        <Route path="discuss" element={<DiscussWrapper />} />
+        <Route path="editorial/:pid" element={<ProblemEditorial />} />
       </Route>
       <Route path='/garage' element={<GarageLayout/>}>
         <Route path='contest/create' element={<CreateContest/>}/>
         <Route path='contest/manage' element={<ManageContest/>}/>
+        <Route path='blog/create' element={<CreateBlog/>}/>
       </Route>
       <Route path="garage/contest/manage/:id" element={<ManageContestLayout/>}>
         <Route index element={<ManageContestTop/>}/>
         <Route path="create" element={<ManageContestCreateProblem/>}/>
         <Route path="update" element={<ManageContestSettings/>}/>
+        <Route path="editorial" element={<ManageContestEditorial/>}/>
+        <Route path="editorial/:pid" element={<ManageContestAddEditorial/>}/>
       </Route>
       <Route path='garage/contest/manage/:id/update' element={<UpdateContestLayout/>}>
           <Route path='problem' element={<UpdateProblem/>}/>
@@ -92,11 +109,12 @@ const router = createBrowserRouter(
 );
 
 const App = () => {
-
   return (
       <SessionContextProvider>
         <SocketContextProvider>
-          <RouterProvider router={router}/>
+          {/*<LiveblocksProvider publicApiKey="pk_prod_Aco82ZiLMLrlNuXfkTsU70irb5LKoZpqJ1myTIGtrgxGR1agSNwmc0FlkHzJuGJK">*/}
+              <RouterProvider router={router}/>
+          {/*</LiveblocksProvider>*/}
         </SocketContextProvider>
       </SessionContextProvider>
     )

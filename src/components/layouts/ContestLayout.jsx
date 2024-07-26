@@ -1,11 +1,11 @@
 import {React,useState,useEffect, useContext} from 'react'
 import { Outlet, useParams, NavLink } from 'react-router-dom';
 import ContestHeader from '../header/ContestHeader';
-import ContestFooter from '../footer/ContestFooter';
 import {useContest} from '../../context/ContestContext';
 import ContestTimer from '../timer/ContestTimer';
 import moment from 'moment';
 import WaitingTimer from '../timer/WaitingTimer';
+import Footer from '../footer/Footer';
 
 const ContestLayout = () => {
   
@@ -53,7 +53,7 @@ const ContestLayout = () => {
                 }
                 </main>
             </div>
-            <ContestFooter />
+            <Footer color={"white"}/>
         </div>
     </>
     )
