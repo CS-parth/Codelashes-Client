@@ -17,7 +17,8 @@ export const SessionProvider = SessionContext.Provider; // Just working as a var
 
 export const SessionContextProvider = ({ children }) => {
   const [User, setUser] = useState({ username: null, email: null });
-
+  const [isLoading,setIsLoading] = useState(true);
+  const [error,setError] = useState(null);
   const updateUser = (username, email) => {
     setUser({ username, email });
   };
@@ -30,13 +31,20 @@ export const SessionContextProvider = ({ children }) => {
                 },
                 credentials: "include",
                 body:JSON.stringify({username,email,password})})
-                .then((res) => {
+                .then(async (res) => {
+                    const response = await res.json();
                     if(res.ok){
                         updateUser(username,email);
+                        setIsLoading(false);
                         window.location.href = "/";
+                    }else{
+                      throw new Error(response.message);
                     }
                 })
-                .catch(err=>console.error(err));
+                .catch(err=>{
+                  setError(err);
+                  isLoading(false);
+                });
   };
 
   const logout = () => {
@@ -75,6 +83,7 @@ export const SessionContextProvider = ({ children }) => {
                 username: res.data.user.username,
                 email: res.data.user.email
               }))
+              setIsLoading(false);
             }
           })
           .catch(err=>console.log(err));
@@ -83,7 +92,7 @@ export const SessionContextProvider = ({ children }) => {
   },[])
 
   return (
-    <SessionContext.Provider value={{ User, updateUser, login, logout }}>
+    <SessionContext.Provider value={{ User, updateUser, login, logout, isLoading, error }}>
       {children}
     </SessionContext.Provider>
   );

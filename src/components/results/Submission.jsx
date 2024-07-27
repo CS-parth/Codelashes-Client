@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import moment from 'moment';
 import { createPortal } from 'react-dom';
 import ModalContent from './ModalContent';
 const Submission = ({ username, verdict, language, time, failedTestcase }) => {
   const [showModal,setShowModal] = useState(false);
-  // console.log(showModal);
+  const setShowModalCallback = useCallback(()=>setShowModal(false),[])
   return (
     <>
       <tr>
@@ -20,7 +20,7 @@ const Submission = ({ username, verdict, language, time, failedTestcase }) => {
               <>
                 <button className='bg-blue-600 rounded-md p-2' onClick={() => setShowModal(true)}>Check</button>
                 {showModal && createPortal(
-                  <ModalContent onClose={() => setShowModal(false)} failedTestcase={failedTestcase} />,
+                  <ModalContent onClose={setShowModalCallback} failedTestcase={failedTestcase} />,
                   document.body
                 )}
               </>

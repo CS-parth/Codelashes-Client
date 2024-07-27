@@ -51,13 +51,16 @@ import ManageContestEditorial from './components/garage/ManageContestEditorial.j
 import ManageContestAddEditorial from './components/garage/ManageContestAddEditorial.jsx';
 import ProblemEditorial from './components/editorial/ProblemEditorial.jsx';
 import CreateBlog from './components/garage/CreateBlog.jsx';
-
+import Contest from './components/Profile/ProfileContests.jsx'
 import {
   LiveblocksProvider,
   RoomProvider,
 } from "@liveblocks/react";
 import DiscussWrapper from './components/discuss/DiscussWrapper.jsx';
-
+import Profile from './components/Profile/Profile.jsx';
+import ProfileLayout from './components/layouts/ProfileLayout.jsx';
+import ProfileContests from './components/Profile/ProfileContests.jsx';
+import ProfileSubmissions from './components/Profile/ProfileSubmissions';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -69,10 +72,13 @@ const router = createBrowserRouter(
         <Route path="sessions" element={<Sessions />} />
         <Route path="garage" element={<Garage />} />
       </Route>
-
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
-
+      <Route path='/profile/:username' element={<ProfileLayout/>}>
+        <Route index element={<Profile/>}/>
+        <Route path='contests' element={<ProfileContests/>}/>
+        <Route path='submissions' element={<ProfileSubmissions/>}/>
+      </Route>
       <Route path="contests/:id" element={<ContestLayoutWrapper />}>
         <Route index element={<SolveContest />} />
         <Route path="task" element={<Task />} />
