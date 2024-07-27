@@ -3,13 +3,11 @@ import {Link,NavLink, useNavigate} from 'react-router-dom'
 import Problems from '../problems/Problems'
 import useUser from '../../context/SessionContext'
 import Cookies from 'universal-cookie';
-const Header = () => {
-  const {User,updateUser} = useUser();
-  const cookies = new Cookies();
-
+const Header = ({list,color}) => {
+  const {User,logout} = useUser();
+  
   const logoutHandler = () =>{
-    updateUser(null,null);
-    cookies.remove('jwt');
+      logout();
   }
 
   return (
@@ -20,11 +18,11 @@ const Header = () => {
         </NavLink>
             <div>
                 <ul className='flex flex-row items-center justify-bwetween space-x-6'>
-                    <li><NavLink to="/problems">Problems</NavLink></li>
-                    <li> <NavLink to="/contests">Contests</NavLink></li>
-                    <li><NavLink to="/blogs">Blogs</NavLink></li>
-                    <li><NavLink to="">Sessions</NavLink></li>
-                    <li><NavLink to="/garage">Garage</NavLink></li>
+                    {
+                      list?.map((item,index)=>(
+                        <li key={index}><NavLink to={item.nav}>{item.title}</NavLink></li>
+                      ))
+                    }
                 </ul>
             </div>
               {(User.username === null) && 
@@ -33,8 +31,15 @@ const Header = () => {
                   <NavLink to="/register">Signup</NavLink>
                 </div>
               }
-              {(User.username !== null) && 
-                <button onClick={logoutHandler}>Logout</button>
+              {(User.username !== null) &&
+                <>
+                  <div className='flex flex-row items-center justify-between space-x-6'>
+                    <button onClick={logout}>Logout</button>
+                    <button>
+                      <NavLink to={`/profile/${User.username}`}>Profile</NavLink>
+                    </button>
+                  </div>
+                </> 
               }
         </div>
     </>

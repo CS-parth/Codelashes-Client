@@ -2,41 +2,24 @@ import React, { useContext, useEffect, useState } from 'react';
 import moment from 'moment';
 import { useContest } from '../../context/ContestContext';
 
-const ContestTimer = ()=>{
-  const {Contest} = useContest();
-  
-  const calculateTimeLeft = ()=>{
-    if(!Contest){
-      return {
-        hours: 0,
-        minutes: 0,
-        seconds: 0,  
-      }
-    }
-    const now = moment();
-    const end = moment("2024-7-12");
-    const duration = moment.duration(end.diff(now));
-    
-    return {
-      hours: Math.floor(duration.asHours()),
-      minutes: duration.minutes(),
-      seconds: duration.seconds(),
-    };
-  }
+const ContestTimer = ({targetTime})=>{
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
+  const [currentTime, setCurrentTime] = useState(Date.now());
+  const timeBetween = targetTime - currentTime;
+  const seconds = Math.floor((timeBetween / 1000) % 60);
+  const minutes = Math.floor((timeBetween / 1000 / 60) % 60);
+  const hours = Math.floor((timeBetween / (1000 * 60 * 60)) % 24);
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now());
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <div>
-      <p>Time Left: {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s</p>
+      <p>Time Left: {hours}h {minutes}m {seconds}s</p>
     </div>
   );
 }

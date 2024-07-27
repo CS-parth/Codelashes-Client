@@ -1,10 +1,13 @@
-import React from 'react'
+import {React,useCallback,useRef} from 'react'
 import { useForm,Controller } from 'react-hook-form';
 import {z} from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
 import moment from 'moment';
 import './fixInput.css';
 import Multiselect from 'multiselect-react-dropdown';
+import { useSettersQuery } from '../../hooks/useSetters';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const isValidDate = (date)=>{
   const contestDate = moment(date).startOf('day');
   const currentDate = moment().startOf('day');
@@ -26,10 +29,12 @@ const isValidTime = (time,date)=>{
 
 const contestSchema = z.object({
   contestName: z.string().min(4).max(50),
-  startDate: z.date().refine(
-    date=>isValidDate(date),
-    {message: 'The contest date can not be in past'}
-  ),
+  startDate: z.date()
+              // .refine(
+              //   date=>isValidDate(date),
+              //   {message: 'The contest date can not be in past'}
+              // )
+              ,
   startTime: z.string(),
   setters: z.array(z.object({
     value: z.string(),
@@ -39,23 +44,29 @@ const contestSchema = z.object({
   duration: z.string(),
   description: z.string().min(10).max(100),
   rules: z.string().min(10).max(100) 
-}).refine(
-  (data) => isValidTime(data.startTime,data.startDate),
-  {
-    message: 'At least need 1 hour gap before the start of the contest',
-    path: ['startTime']
-  }
-)
+})
+// .refine(
+//   (data) => isValidTime(data.startTime,data.startDate),
+//   {
+//     message: 'At least need 1 hour gap before the start of the contest',
+//     path: ['startTime']
+//   }
+// )
 
 // const objectArray = ["Apple","Banana","Grapes","Papaya"];
 
 const CreateContest = () => {
+  const { data, error, isLoading } = useSettersQuery({});
+  const contestSubmit = useRef(null);
+  const navigate = useNavigate();
   const { register, handleSubmit, control, setValue, watch, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(contestSchema)
   }
   );
   const onSubmit = (data)=>{
-    console.log(data);
+    const onSuccess = () => toast.success("Contest Created Successfully",{theme:"light",autoClose:2000});
+    const onError = (err) => toast.error(err,{autoClose:2000}); 
+    // contestSubmit.current = toast.loading("Loading...",{autoClose:2000});
     // backend api /api/contest/create
     // fetch("http:localhost:7700/api/contest/create")
     const formData = {
@@ -80,6 +91,7 @@ const CreateContest = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(formData),
     })
     .then(async (res)=>{
@@ -90,24 +102,28 @@ const CreateContest = () => {
       throw new Error(response.message);
     })
     .then((data)=>{
-      console.log(data);
-      // redirection to manage contest
+      onSuccess();
+      setTimeout(()=>{
+        navigate(`/garage/contest/manage/${data.id}`);
+      },1000);
     })
     .catch((err)=>{
-      console.log(err);
+      onError(err);
     })
-    // console.log(data);
   } 
+
+  if (error) return <div>Request Failed</div>;
+	if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
-    <div className='flex flex-col justify-center items-center font-extrabold text-2xl'>Contest Details</div>
+    <div className='mt-5 flex flex-col justify-center items-center font-extrabold text-2xl'>Contest Details</div>
         <form className='p-5 bg-[#03045e] flex flex-col justify-center items-start gap-6 outline-grey w-9/12 m-auto mt-10 rounded-lg' onSubmit={handleSubmit(onSubmit)}>
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="contestName">Name of the Contest : </label>
               <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' name='contestName' 
               {...register("contestName")}
-              aria-invalid={errors.contestName ? "true" : "false"}
+                aria-invalid={errors.contestName ? "true" : "false"}
               />
               {errors.contestName && (
                 <div className='text-red-500'>{errors.contestName.message}</div>
@@ -181,6 +197,8 @@ const CreateContest = () => {
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="duration">Duration : </label>
               <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' name="duration" {...register("duration")}>
+                <option value="00:05">00:05</option>
+                <option value="00:10">00:10</option>
                 <option value="00:30">00:30</option>
                 <option value="01:00">01:00</option>
                 <option value="01:30">01:30</option>
@@ -216,11 +234,12 @@ const CreateContest = () => {
                               onRemove={(selected, item) => {
                                 setValue("setters", selected);
                               }}
-                              options={[
-                                { value: "chocolate", name: "Chocolate", id: "507f1f77bcf86cd799439011" },
-                                { value: "strawberry", name: "Strawberry", id: "507f1f77bcf86cd799439011" },
-                                { value: "vanilla", name: "Vanilla", id: "507f191e810c19729de860ea" }
-                              ]}
+                              options={data.map((setter)=>({
+                                value: setter.username,
+                                name: setter.username,
+                                id: setter._id
+                              }))}
+
                           />
                     </div>
                     );

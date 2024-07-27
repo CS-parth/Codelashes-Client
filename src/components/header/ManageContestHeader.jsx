@@ -11,6 +11,7 @@ const ManageContestHeader = () => {
                 <ul className='flex flex-row justify-bwetween space-x-6'>
                     <li><NavLink to={""}>Top</NavLink></li>
                     <li> <NavLink to={"create"}>Add Problem</NavLink></li>
+                    <li> <NavLink to={"editorial"}>Add Editorial</NavLink></li>
                     <li><NavLink to={"update"}>Settings</NavLink></li>
                 </ul>
             </div>

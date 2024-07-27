@@ -1,7 +1,8 @@
 import React from 'react'
 import Contest from './Contest'
 import { useEffect,useState } from 'react';
-const ContestList = () => {
+import moment from 'moment';
+const ContestList = ({passed}) => {
     // useEffect hook for the fetching part
     const [ContestList,setContestList] = useState(null);
     const [isLoading,setisLoading] = useState(true);
@@ -45,16 +46,25 @@ const ContestList = () => {
              ) : error ? (
               <tr><th>Error</th></tr>
              ) : (
-                ContestList.map(contest=>(
-                  <Contest 
+              ContestList
+              .filter(contest => {
+                if (passed) {
+                  return moment().isAfter(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
+                } else {
+                  return moment().isBefore(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
+                }
+              })
+              .map(contest => (
+                <Contest 
+                  key={contest._id}
                   id={contest._id}
                   name={contest.name}
                   setters={contest.setters}
-                  date={contest.date}
-                  time={contest.time + "UTC+5.5"}
+                  startDate={contest.startDate}
+                  startTime={`${contest.startTime}   UTC+5.5`}
                   duration={contest.duration}
-                  />
-                ))
+                />
+              ))
             )}
             </tbody>
         </table>

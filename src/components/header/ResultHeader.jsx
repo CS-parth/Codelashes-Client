@@ -3,12 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 const ResultHeader = () => {
   return (
-    <div className='flex flex-row justify-between w-2/5'>
+    <div className='flex flex-row justify-between w-2/5 mt-10'>
         <div>
             <NavLink 
                 to="all"
                 className={({ isActive }) => 
-                  `rounded-sm p-1 m-2 ${isActive ? 'bg-blue-700' : 'bg-white'} ${isActive ? '' : 'hover:bg-gray-200'} `
+                  `rounded-md p-1 m-2 ${isActive ? 'bg-gray-500' : 'bg-white'} ${isActive ? '' : 'hover:bg-gray-200'} `
                 }
             >
                 All Submissions
@@ -19,7 +19,7 @@ const ResultHeader = () => {
                 to="" 
                 end
                 className={({ isActive }) => 
-                  `rounded-md p-1 m-2 ${isActive ? 'bg-blue-700' : 'bg-white'} ${isActive ? '' : 'hover:bg-gray-200'} `
+                  `rounded-md p-1 m-2 ${isActive ? 'bg-gray-500' : 'bg-white'} ${isActive ? '' : 'hover:bg-gray-200'} `
                 }
             >
                 My Submissions

@@ -1,12 +1,12 @@
-import { CheckBadgeIcon, DocumentTextIcon } from '@heroicons/react/16/solid'
+import { CheckBadgeIcon, DocumentTextIcon, ExclamationTriangleIcon } from '@heroicons/react/16/solid'
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 
 const Problem = (props) => {
     const statusComponents = {
-        solved: <CheckBadgeIcon className='m-auto size-4 fill-bar_base' />,
-        Attempted: null, // or render something for 'Attempted' status
-        default: null, // or render something for default case
+        Solved: <CheckBadgeIcon className='m-auto size-4 fill-bar_base' />,
+        Attempted: <ExclamationTriangleIcon className='m-auto size-4 fill-bar_base' />, 
+        default: null, 
       };
       
       return (
@@ -18,7 +18,7 @@ const Problem = (props) => {
               </NavLink>
           </td>
           <td className='text-center'>{props.editorial && (
-            <a href=""><DocumentTextIcon className='size-4 fill-bar_base_light'/></a>
+            <NavLink to={`/contests/${props.cid}/editorial/${props.id}`}><DocumentTextIcon className='m-auto size-6 fill-bar_base_light'/></NavLink>
           )}</td>
           <td className='text-center'>{props.acceptance}</td>
           <td className='text-center'>{props.difficulty}</td>

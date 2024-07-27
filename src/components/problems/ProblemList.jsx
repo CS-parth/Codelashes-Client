@@ -1,30 +1,41 @@
-import React, { useEffect,useState } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import Problem from './Problem'
-const ProblemList = () => {
+import useSession from '../../context/SessionContext';
+const ProblemList = ({status,difficulty,acceptance}) => {
   const [problemList,setproblemList] = useState(null);
   const [isLoading,setisLoading] = useState(true);
   const [error,setError] = useState(null);
-  useEffect(()=>{
-    fetch("http://localhost:7700/api/problem/all")
-    .then(async (res)=>{
-      if(!res.ok){
-        const response = await res.json();
-        throw new Error(`${response.message}`);
-      }
-      return res.json();
-    })
-    .then((data)=>{
-      // console.log(typeof(data));
-      // console.log(data);
-      setproblemList(data);
-      setisLoading(false);
-    })  
-    .catch((err)=>{
-      // console.log(err);
-      setError(err.message);
-      setisLoading(false);
-    })
-  },[]);
+  // const {User} = useSession();
+  useEffect(() => {
+    // if(User){
+      const queryParams = new URLSearchParams({
+        ...(status && { status }),
+        ...(difficulty && { difficulty }),
+        ...(acceptance && { acceptance })
+      });
+      fetch(`http://localhost:7700/api/problem/all?${queryParams}`,{
+        method:"GET",
+        credentials:"include"
+      })
+      .then(async (res)=>{
+        const result = await res.json();
+        if(res.ok){
+          return result;
+        }
+        throw new Error(result.message);
+      })
+      .then((data)=>{
+        setproblemList(data);
+        setisLoading(false);
+      })
+      .catch((err)=>{
+        setError(err.message);
+        setisLoading(false);
+      })
+    // }
+  }, [status,difficulty,acceptance]);
+  if(isLoading) return <div>Loading ....</div>
+  if(error) return <div>Error</div>
   return (
     <table className="w-9/12 m-auto text-black" style={{emptyCells: "show"}}>
       <thead>
@@ -40,16 +51,18 @@ const ProblemList = () => {
       {isLoading ? (
         <h1>Loading</h1>
       ) : error ? (
-        <h1>Error</h1>
+        <h1>{error}</h1>
       ) : (
-        problemList.map(problem => (
+        problemList.map((problem,index) => (
           <Problem 
-            cid={problem.contest}
+            key={index}
+            cid={problem.contest._id}
             id={problem._id} 
-            status={"solved"} 
+            status={problem.status} 
             title={problem.title} 
             acceptance={problem.acceptance} 
             difficulty={problem.difficulty} 
+            editorial={problem.editorial}
           />
         ))
       )}

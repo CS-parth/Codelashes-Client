@@ -11,24 +11,17 @@ export const SolveProblemWrapper = () => {
     const [jobId,setJobId] = useState(null);
     const { roomId } = useSocket();
     useEffect(() => {
-      let intervalId;
-    
+      console.log("Socket listners registered")
       function onVerdict(value) {
         add(value);
         setVerdictTrigger(t => t + 1);
-        // clearInterval(intervalId);
       }
-      
-      // intervalId = setInterval(() => {
-        // console.log(roomId);
-        // if(!roomId || !jobId) clearInterval(intervalId);
+      console.log(roomId);
         socket.on("verdict", onVerdict);
-      // }, 1000);
       return () => {
-        // clearInterval(intervalId);
         socket.off('verdict', onVerdict);
       };
-    },[jobId]); // Maybe job-id is indeed not requied (will ccheck it later) 
+    },[]); // Maybe job-id is indeed not requied (will ccheck it later) 
     
     return (
         <SolveProblem 

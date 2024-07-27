@@ -1,14 +1,14 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from 'universal-cookie';
-
+import { useNavigate } from 'react-router-dom';
 const cookies = new Cookies();
 export const SessionContext  = createContext({
     Session: {
-        "Sessionname": null,
+        "usernname": null,
         "email": null
     },
-    updateSession: () => {},
+    updateUser: () => {},
     login : () => {},
     logout : () => {}
 })
@@ -17,27 +17,53 @@ export const SessionProvider = SessionContext.Provider; // Just working as a var
 
 export const SessionContextProvider = ({ children }) => {
   const [User, setUser] = useState({ username: null, email: null });
-
+  const [isLoading,setIsLoading] = useState(true);
+  const [error,setError] = useState(null);
   const updateUser = (username, email) => {
     setUser({ username, email });
   };
   
   const login = (username,email,password) => {
-    axios.post(`http://localhost:7700/api/auth/signin`, { username,email,password })
-             .then((res) => {
-                if(res.data.success){
-                    updateUser(username,email);
-                    cookies.set('jwt',res.data.token,{path:'/'})
-                    navigate("/");
-                }
-             })
-             .catch(err=>console.error(err));
+        fetch(`http://localhost:7700/api/auth/signin`, { 
+                method:"POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body:JSON.stringify({username,email,password})})
+                .then(async (res) => {
+                    const response = await res.json();
+                    if(res.ok){
+                        updateUser(username,email);
+                        setIsLoading(false);
+                        window.location.href = "/";
+                    }else{
+                      throw new Error(response.message);
+                    }
+                })
+                .catch(err=>{
+                  setError(err);
+                  isLoading(false);
+                });
   };
 
   const logout = () => {
-    updateUser(null,null);
-    cookies.remove('jwt');
-  }
+    fetch("http://localhost:7700/api/auth/logout",{
+      method:"POST",
+      credentials:"include"
+    })
+    .then((response) => {
+      if (response.ok){
+        updateUser(null, null);
+        window.location.href = "/login";
+      } else {
+        console.error('Logout was not successful');
+      }
+    })
+    .catch(error => {
+      console.error('Logout failed:', error);
+    });
+  };
 
   useEffect(() => {
     localStorage.setItem('User', JSON.stringify(User));
@@ -53,7 +79,11 @@ export const SessionContextProvider = ({ children }) => {
         'Content-Type': 'application/json'
        }}).then((res)=>{
             if(res.data.success){
-              setUser({...res.data.user})
+              setUser(()=>({
+                username: res.data.user.username,
+                email: res.data.user.email
+              }))
+              setIsLoading(false);
             }
           })
           .catch(err=>console.log(err));
@@ -62,7 +92,7 @@ export const SessionContextProvider = ({ children }) => {
   },[])
 
   return (
-    <SessionContext.Provider value={{ User, updateUser, login, logout }}>
+    <SessionContext.Provider value={{ User, updateUser, login, logout, isLoading, error }}>
       {children}
     </SessionContext.Provider>
   );
