@@ -61,6 +61,8 @@ import Profile from './components/Profile/Profile.jsx';
 import ProfileLayout from './components/layouts/ProfileLayout.jsx';
 import ProfileContests from './components/Profile/ProfileContests.jsx';
 import ProfileSubmissions from './components/Profile/ProfileSubmissions';
+import AuthWrapper from './utils/AuthWrapper.jsx'
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -70,7 +72,11 @@ const router = createBrowserRouter(
         <Route path="contests" element={<Contests />} />
         <Route path="blogs" element={<Blogs />} />
         <Route path="sessions" element={<Sessions />} />
-        <Route path="garage" element={<Garage />} />
+        <Route path="garage" element={
+          <AuthWrapper >
+            <Garage/>
+          </AuthWrapper>
+        } />
       </Route>
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
@@ -93,23 +99,36 @@ const router = createBrowserRouter(
         <Route path="discuss" element={<DiscussWrapper />} />
         <Route path="editorial/:pid" element={<ProblemEditorial />} />
       </Route>
-      <Route path='/garage' element={<GarageLayout/>}>
+      <Route path='/garage' element={
+        <AuthWrapper >
+          <GarageLayout/>
+        </AuthWrapper>
+      }>
         <Route path='contest/create' element={<CreateContest/>}/>
         <Route path='contest/manage' element={<ManageContest/>}/>
         <Route path='blog/create' element={<CreateBlog/>}/>
       </Route>
-      <Route path="garage/contest/manage/:id" element={<ManageContestLayout/>}>
+      <Route path="garage/contest/manage/:id" element={
+        <AuthWrapper>
+          <ManageContestLayout/>
+        </AuthWrapper>
+        }>
         <Route index element={<ManageContestTop/>}/>
         <Route path="create" element={<ManageContestCreateProblem/>}/>
         <Route path="update" element={<ManageContestSettings/>}/>
         <Route path="editorial" element={<ManageContestEditorial/>}/>
         <Route path="editorial/:pid" element={<ManageContestAddEditorial/>}/>
       </Route>
-      <Route path='garage/contest/manage/:id/update' element={<UpdateContestLayout/>}>
+      <Route path='garage/contest/manage/:id/update' element={
+        <AuthWrapper>
+        <UpdateContestLayout/>
+        </AuthWrapper>
+        }>
           <Route path='problem' element={<UpdateProblem/>}/>
           <Route path='contest' element={<UpdateContest/>}/>
           <Route path='problem/:pid' element={<EditProblem/>}/>
       </Route>
+      <Route path='*' element={<Home/>} />
     </>
   )
 );

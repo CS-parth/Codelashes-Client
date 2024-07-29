@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-export const useProfileContestQuery = (options) => { 
+export const useProfileContestQuery = (username,options) => { 
     const getProfileContest = async ()=>{
-        const res = await fetch(`http://localhost:7700/api/contest/my`,{
+        const res = await fetch(`http://localhost:7700/api/contest/my?username=${username}`,{
             method:"GET",
             credentials:"include"
        });
@@ -19,8 +19,8 @@ export const useProfileContestQuery = (options) => {
     };
 
     return useQuery(
-        ['profileContest'], // query keys act as dependencies
-        () => getProfileContest(),
+        ['profileContest',username], // query keys act as dependencies
+        () => getProfileContest(username),
         queryOptions
     );
 };

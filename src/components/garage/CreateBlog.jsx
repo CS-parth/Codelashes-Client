@@ -39,7 +39,7 @@ const handleSubmit = (e) => {
 };
   return (
     <div className='w-9/12 m-auto'>
-        <h1 className='text-center mt-10 text-2xl'>Blog Details</h1>
+        <h1 className='text-center mt-5 text-2xl bg-gray-600 rounded-t-md mb-10'>Blog Details</h1>
         <form>
             <div>
                 <Editor
@@ -63,7 +63,7 @@ const handleSubmit = (e) => {
                     }}
                 />
             </div>
-            <button type='submit' onClick={handleSubmit}>Create</button>
+            <button className='m-5 bg-blue-950 bg-opacity-60 text-white rounded-xl p-3 w-40' type='submit' type='submit' onClick={handleSubmit}>Create</button>
         </form>
     </div>
   )

@@ -11,9 +11,9 @@ export const ManageContest = () => {
   if(error) return <div>Request Failed</div>
   return (
     <div>
-        <table className='w-9/12 m-auto table-auto'>
+        <table className='w-9/12 m-auto table-auto mt-10'>
             <thead>
-                <tr>
+                <tr className='outline bg-gray-600 rounded-t-md'>
                     <th>Index</th>
                     <th>Contest Name</th>
                     <th>Setters</th>
@@ -22,7 +22,7 @@ export const ManageContest = () => {
             <tbody>
                 {
                     data?.map((contest,index)=>(
-                        <tr key={index}>
+                        <tr key={index} className='outline'>
                             <td className='text-center'>{contest.index}</td>
                             <td className='text-center'>
                                 <NavLink to={contest._id}>

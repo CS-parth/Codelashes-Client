@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-export const useRatingQuery = (options) => { 
-    const getRating = async ()=>{
-        const res = await fetch(`http://localhost:7700/api/user/rating`,{
+export const useRatingQuery = (username,options) => { 
+    const getRating = async (username)=>{
+        const res = await fetch(`http://localhost:7700/api/user/rating?username=${username}`,{
             method:"GET",
             credentials:"include"
        });
@@ -18,8 +18,8 @@ export const useRatingQuery = (options) => {
     };
 
     return useQuery(
-        ['Rating'], // query keys act as dependencies
-        () => getRating(),
+        ['Rating',username], // query keys act as dependencies
+        () => getRating(username),
         queryOptions
     );
 };

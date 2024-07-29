@@ -1,9 +1,14 @@
 import React from 'react'
 import Contest from '../contests/Contest'
 import {useContest} from '../../context/ContestContext'
+import useSession from '../../context/SessionContext';
+import { NavLink } from 'react-router-dom';
 const ContestHeader = () => {
   const {Contest,isLoading,error} = useContest();
-  
+  const {logout,login} = useSession();
+  const User = JSON.parse(localStorage.getItem('User'));
+  if(isLoading) return <h1>Loading ...</h1>
+  if(error) return <h1>Request Failed</h1>
   return (
     <header className="bg-white shadow">
             <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -16,7 +21,26 @@ const ContestHeader = () => {
                 <span className="font-semibold text-lg">{Contest.name}</span>
                 </div>
                 <div className="flex items-center">
-                <button className="text-gray-600 hover:text-gray-800">Profile</button>
+                {(User.username != null) ? 
+                  <>
+                    <div className='flex flex-row items-center justify-between space-x-6'>
+                      <button onClick={logout}>Logout</button>
+                      <button>
+                        <NavLink to={`/profile/${User.username}`}>Profile</NavLink>
+                      </button>
+                    </div>
+                  </> : 
+                  <>  
+                    <div className='flex flex-row items-center justify-between space-x-6'>
+                      <button>
+                      <NavLink to={"/login"}>Login</NavLink>
+                      </button>
+                      <button>
+                        <NavLink to={"/register"}>Signup</NavLink>
+                      </button>
+                    </div>
+                  </> 
+                }
                 </div>
             </div>
     </header>
