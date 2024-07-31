@@ -16,7 +16,7 @@ const ProfileLayout = () => {
             <div className='flex-grow'>
                 <Outlet/>
             </div>
-        <Footer/>
+        <Footer color={"black"}/>
     </div>
   )
 }

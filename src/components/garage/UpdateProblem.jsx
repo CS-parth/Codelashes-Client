@@ -29,9 +29,9 @@ const UpdateProblem = () => {
   if(error) return <div>Request Failed</div>
   return (
     <div>
-      <table className='table-auto m-auto w-9/12'>
+      <table className='table-auto m-auto w-9/12 mt-10'>
         <thead>
-          <tr>
+          <tr className='outline bg-gray-600'>
             <th>Index</th>
             <th>Problem Name</th>
             <th>Edit</th>
@@ -41,15 +41,15 @@ const UpdateProblem = () => {
         <tbody>
           {
             data.map((problem,index)=>(
-              <tr key={index}>
-                <td className='text-center'>{index}</td>
+              <tr key={index} className='outline'>
+                <td className='text-center'>{index+1}</td>
                 <td className='text-center'>{problem.title}</td>
                 <td className='text-center'>
                   <NavLink to={problem._id}>
-                    <button className='bg-blue-600 rounded-md p-1 m-1'>Edit</button>
+                    <button className='bg-gray-600 text-white rounded-md p-1 m-1'>Edit</button>
                   </NavLink>
                 </td>
-                <td className='text-center'><button className='bg-red-600 rounded-md p-1 m-1' id={problem._id} onClick={handleDeleteClick}>Delete</button></td>
+                <td className='text-center'><button className='bg-gray-600 text-white rounded-md p-1 m-1' id={problem._id} onClick={handleDeleteClick}>Delete</button></td>
               </tr>
             ))
           }

@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Layout from './components/layouts/MainLayout.jsx';
 import Home from './components/home/Home.jsx'
-import Contests from './components/contests/Contests.jsx'
+import Contests from './components/top/Contests.jsx'
 import Blogs from './components/blogs/Blogs.jsx';
 import Problems from './components/problems/Problems.jsx';
 import SolveProblem from './components/problems/SolveProblem';
@@ -23,7 +23,7 @@ import Editorial from './components/editorial/Editorial.jsx';
 import Submit from './components/submit/Submit.jsx';
 import Results from './components/results/Results.jsx';
 import Standing from './components/standing/Standing.jsx';
-import SolveContest from './components/contests/SolveContest.jsx';
+import SolveContest from './components/top/SolveContest.jsx';
 import ContestLayout from './components/layouts/ContestLayout.jsx';
 import ContestContextProvider from './context/ContestContext.jsx';
 import SolveProblemWrapper from './components/problems/SolveProblemWrapper.jsx'
@@ -62,6 +62,7 @@ import ProfileLayout from './components/layouts/ProfileLayout.jsx';
 import ProfileContests from './components/Profile/ProfileContests.jsx';
 import ProfileSubmissions from './components/Profile/ProfileSubmissions';
 import AuthWrapper from './utils/AuthWrapper.jsx'
+import {ManageBlog} from './components/garage/ManageBlog.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -107,6 +108,7 @@ const router = createBrowserRouter(
         <Route path='contest/create' element={<CreateContest/>}/>
         <Route path='contest/manage' element={<ManageContest/>}/>
         <Route path='blog/create' element={<CreateBlog/>}/>
+        <Route path='blog/manage' element={<ManageBlog/>}/>
       </Route>
       <Route path="garage/contest/manage/:id" element={
         <AuthWrapper>
