@@ -5,7 +5,7 @@ import {useContest} from '../../context/ContestContext';
 import ContestTimer from '../timer/ContestTimer';
 import moment from 'moment';
 import WaitingTimer from '../timer/WaitingTimer';
-import Footer from '../footer/Footer';
+import Footer from './footer/Footer';
 
 const ContestLayout = () => {
   

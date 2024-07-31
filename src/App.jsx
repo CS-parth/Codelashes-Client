@@ -51,16 +51,16 @@ import ManageContestEditorial from './components/garage/ManageContestEditorial.j
 import ManageContestAddEditorial from './components/garage/ManageContestAddEditorial.jsx';
 import ProblemEditorial from './components/editorial/ProblemEditorial.jsx';
 import CreateBlog from './components/garage/CreateBlog.jsx';
-import Contest from './components/Profile/ProfileContests.jsx'
+import Contest from './components/profile/ProfileContests.jsx'
 import {
   LiveblocksProvider,
   RoomProvider,
 } from "@liveblocks/react";
 import DiscussWrapper from './components/discuss/DiscussWrapper.jsx';
-import Profile from './components/Profile/Profile.jsx';
+import Profile from './components/profile/Profile.jsx';
 import ProfileLayout from './components/layouts/ProfileLayout.jsx';
-import ProfileContests from './components/Profile/ProfileContests.jsx';
-import ProfileSubmissions from './components/Profile/ProfileSubmissions';
+import ProfileContests from './components/profile/ProfileContests.jsx';
+import ProfileSubmissions from './components/profile/ProfileSubmissions.jsx';
 import AuthWrapper from './utils/AuthWrapper.jsx'
 import {ManageBlog} from './components/garage/ManageBlog.jsx';
 
