@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react'
-import { useParams } from 'react-router-dom';
-import {useContest} from '../../context/ContestContext';
+import {useContest} from '../../../context/ContestContext';
 import moment from 'moment';
 const SolveContest = () => {
   const { Contest,isLoading,error } = useContest();

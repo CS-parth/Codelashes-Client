@@ -1,10 +1,10 @@
 import {React,useState,useEffect, useContext} from 'react'
 import { Outlet, useParams, NavLink } from 'react-router-dom';
-import ContestHeader from '../header/ContestHeader';
+import ContestHeader from './header/ContestHeader';
 import {useContest} from '../../context/ContestContext';
-import ContestTimer from '../timer/ContestTimer';
+import ContestTimer from '../contest/timer/ContestTimer';
 import moment from 'moment';
-import WaitingTimer from '../timer/WaitingTimer';
+import WaitingTimer from '../contest/timer/WaitingTimer';
 import Footer from './footer/Footer';
 
 const ContestLayout = () => {

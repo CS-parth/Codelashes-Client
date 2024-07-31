@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { useEditorialQuery } from '../../hooks/useEditorialQuery';
+import { useEditorialQuery } from '../../../hooks/useEditorialQuery';
 import parse from 'html-react-parser';
 import { CopyBlock, dracula } from 'react-code-blocks';
 const ProblemEditorial = () => {

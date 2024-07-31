@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Submission from './Submission';
-import useSession from '../../context/SessionContext';
+import useSession from '../../../context/SessionContext';
 
 const AllSubmissions = () => {
     const { User } = useSession();

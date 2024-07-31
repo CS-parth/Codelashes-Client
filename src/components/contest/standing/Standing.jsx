@@ -1,7 +1,7 @@
 import React from 'react'
-import { useRankingQuery } from '../../hooks/useRankingQuery';
+import { useRankingQuery } from '../../../hooks/useRankingQuery';
 import { useParams } from 'react-router-dom';
-import { useContest } from '../../context/ContestContext';
+import { useContest } from '../../../context/ContestContext';
 import { CheckBadgeIcon } from '@heroicons/react/16/solid';
 const Standing = () => {
   const {id} = useParams();

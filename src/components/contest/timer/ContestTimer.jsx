@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import moment from 'moment';
-import { useContest } from '../../context/ContestContext';
 
 const ContestTimer = ({targetTime})=>{
 

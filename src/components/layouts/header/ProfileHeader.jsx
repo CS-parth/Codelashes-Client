@@ -1,7 +1,7 @@
 import { HashtagIcon } from '@heroicons/react/16/solid'
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import useSession from '../../context/SessionContext'
+import useSession from '../../../context/SessionContext'
 const ProfileHeader = () => {
   const {username} = useParams();
   const {logout} = useSession();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useContest } from '../../context/ContestContext';
+import { useContest } from '../../../context/ContestContext';
 
 const Tasks = () => {
   const { Contest, isLoading, error } = useContest();

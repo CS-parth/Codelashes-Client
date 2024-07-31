@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {Link,NavLink, useNavigate} from 'react-router-dom'
-import Problems from '../problems/Problems'
-import useUser from '../../context/SessionContext'
-import Cookies from 'universal-cookie';
+import useUser from "../../../context/SessionContext"
 const Header = ({list,color}) => {
-  const {User,logout} = useUser();
-  
+  const {User,logout} = useUser();  
   const logoutHandler = () =>{
       logout();
   }

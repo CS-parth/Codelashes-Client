@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 
 import Discuss from './Discuss';
-import { useContest } from '../../context/ContestContext';
+import { useContest } from '../../../context/ContestContext';
 import "@liveblocks/react-ui/styles.css";
 
 import {

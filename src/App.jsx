@@ -1,4 +1,4 @@
-import React,{useState,useEffect, version} from 'react'
+import React from 'react'
 import './index.css'
 import {
   createBrowserRouter,
@@ -9,36 +9,28 @@ import {
 } from "react-router-dom";
 import Layout from './components/layouts/MainLayout.jsx';
 import Home from './components/home/Home.jsx'
-import Contests from './components/top/Contests.jsx'
+import Contests from './components/contest/top/Contests.jsx'
 import Blogs from './components/blogs/Blogs.jsx';
 import Problems from './components/problems/Problems.jsx';
-import SolveProblem from './components/problems/SolveProblem';
 import { SessionContextProvider } from './context/SessionContext.jsx';
 import Login from './components/auth/Login.jsx';
 import Register from './components/auth/Register.jsx';
 import ContestLayoutWrapper from './components/layouts/ContestLayoutWrapper.jsx'
-import Task from './components/task/Tasks.jsx';
-import Discuss from './components/discuss/Discuss.jsx';
-import Editorial from './components/editorial/Editorial.jsx';
-import Submit from './components/submit/Submit.jsx';
-import Results from './components/results/Results.jsx';
-import Standing from './components/standing/Standing.jsx';
-import SolveContest from './components/top/SolveContest.jsx';
-import ContestLayout from './components/layouts/ContestLayout.jsx';
-import ContestContextProvider from './context/ContestContext.jsx';
+import Task from './components/contest/task/Tasks.jsx';
+import Editorial from './components/contest/editorial/Editorial.jsx';
+import Standing from './components/contest/standing/Standing.jsx';
+import SolveContest from './components/contest/top/SolveContest.jsx';
 import SolveProblemWrapper from './components/problems/SolveProblemWrapper.jsx'
-import { socket } from './socket/socket.js';
-import { v4 as uuid } from 'uuid'
 import { SocketContextProvider } from './context/SocketContext.jsx';
 import ResultLayout from './components/layouts/ResultLayout.jsx';
-import MySubmissions from './components/results/MySubmissions.jsx';
-import AllSubmissions from './components/results/AllSubmissions.jsx';
+import MySubmissions from './components/contest/results/MySubmissions.jsx';
+import AllSubmissions from './components/contest/results/AllSubmissions.jsx';
 import CreateContest from './components/garage/CreateContest.jsx';
 import ManageContestLayout from './components/layouts/ManageContestLayout.jsx';
 import ManageContestCreateProblem from './components/garage/ManageContestCreateProblem.jsx';
 import ManageContestSettings from './components/garage/ManageContestSettings.jsx';
 import ManageContestTop from './components/garage/ManageContestTop.jsx';
-import SubmitWrapper from './components/submit/SubmitWrapper.jsx';
+import SubmitWrapper from './components/contest/submit/SubmitWrapper.jsx';
 import { ManageContest } from './components/garage/ManageContest.jsx';
 import GarageLayout from './components/layouts/GarageLayout.jsx'
 import Garage from './components/garage/Garage.jsx'
@@ -49,14 +41,13 @@ import EditProblem from './components/garage/EditProblem.jsx';
 import Sessions from './components/sessions/Sessions.jsx'
 import ManageContestEditorial from './components/garage/ManageContestEditorial.jsx';
 import ManageContestAddEditorial from './components/garage/ManageContestAddEditorial.jsx';
-import ProblemEditorial from './components/editorial/ProblemEditorial.jsx';
+import ProblemEditorial from './components/contest/editorial/ProblemEditorial.jsx';
 import CreateBlog from './components/garage/CreateBlog.jsx';
-import Contest from './components/profile/ProfileContests.jsx'
 import {
   LiveblocksProvider,
   RoomProvider,
 } from "@liveblocks/react";
-import DiscussWrapper from './components/discuss/DiscussWrapper.jsx';
+import DiscussWrapper from './components/contest/discuss/DiscussWrapper.jsx';
 import Profile from './components/profile/Profile.jsx';
 import ProfileLayout from './components/layouts/ProfileLayout.jsx';
 import ProfileContests from './components/profile/ProfileContests.jsx';

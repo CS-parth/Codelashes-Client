@@ -1,8 +1,8 @@
 import { useQueue, useScript } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
-import { socket } from '../../socket/socket'
+import { socket } from '../../../socket/socket'
 import Submit from "./Submit";
-import useSocket from "../../context/SocketContext";
+import useSocket from "../../../context/SocketContext";
 export const SubmitWrapper = () => {
     
     const { add, remove, first, verdictQueue } = useQueue([]);

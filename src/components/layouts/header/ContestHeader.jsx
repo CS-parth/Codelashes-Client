@@ -1,7 +1,6 @@
 import React from 'react'
-import Contest from '../top/Contest'
-import {useContest} from '../../context/ContestContext'
-import useSession from '../../context/SessionContext';
+import {useContest} from '../../../context/ContestContext'
+import useSession from '../../../context/SessionContext';
 import { NavLink } from 'react-router-dom';
 const ContestHeader = () => {
   const {Contest,isLoading,error} = useContest();

@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from './footer/Footer';
 import { Outlet, NavLink } from 'react-router-dom';
-import ProfileHeader from '../header/ProfileHeader';
+import ProfileHeader from './header/ProfileHeader';
 import useSession from '../../context/SessionContext';
 
 const ProfileLayout = () => {

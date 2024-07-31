@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useContest } from '../../context/ContestContext';
+import { useContest } from '../../../context/ContestContext';
 import { useLocation } from 'react-router-dom';
-import useSession from '../../context/SessionContext'
+import useSession from '../../../context/SessionContext'
 import { toast } from 'react-toastify';
 
 const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) => {
