@@ -101,10 +101,10 @@ const ManageContestCreateProblem = () => {
   if(isLoading) return <div>Loading ...</div>
   if(error) return <div>Request Failed</div>
   return (
-    <form className='p-5 bg-[#03045e] flex flex-col justify-center items-start gap-6 outline-grey w-9/12 m-auto mt-10 rounded-lg' onSubmit={handleSubmit(onSubmit)}>
+    <form className='p-5 bg-black opacity-60 flex flex-col justify-center items-start gap-6 outline-grey w-9/12 m-auto mt-10 rounded-lg my-10' onSubmit={handleSubmit(onSubmit)}>
       <div className='m-5'>
         <label className='mr-5 text-white text-xl font-bold' htmlFor="title">Title : </label>
-        <input defaultValue={problemData.title} className='text-white border bg-[#023e8a] rounded-md p-1 pl-4'
+        <input defaultValue={problemData.title} className='text-white border bg-gray-600 rounded-md p-1 pl-4'
           {...register("title")}
           name='title' type="text" />
           {errors.title && (
@@ -280,7 +280,7 @@ const ManageContestCreateProblem = () => {
       </div>
       <div className='m-5'>
           <label className='mr-5 text-white text-xl font-bold' htmlFor="memory">Memory : </label>
-          <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
+          <input className='text-white border bg-gray-600 rounded-md p-1 pl-4' 
           {...register("memory",{
             valueAsNumber:true
           })}
@@ -292,7 +292,7 @@ const ManageContestCreateProblem = () => {
       </div>
       <div className='m-5'>
           <label className='mr-5 text-white text-xl font-bold' htmlFor="time">Time : </label>
-          <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
+          <input className='text-white border bg-gray-600 rounded-md p-1 pl-4' 
           {...register("time",{
             valueAsNumber:true
           })}
@@ -304,7 +304,7 @@ const ManageContestCreateProblem = () => {
       </div>
       <div className='m-5'>
           <label className='mr-5 text-white text-xl font-bold' htmlFor="difficulty">Difficulty : </label>
-          <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
+          <input className='text-white border bg-gray-600 rounded-md p-1 pl-4' 
           {...register("difficulty",{
             valueAsNumber:true
           })}
@@ -316,7 +316,7 @@ const ManageContestCreateProblem = () => {
       </div>
       <div className='m-5'>
         <label className='mr-5 text-white text-xl font-bold' htmlFor="difficulty">Upload a zip of testcases : </label>
-        <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
+        <input className='text-white border bg-gray-600 rounded-md p-1 pl-4' 
         {...register("testcase")}
         name='testcase' type="file" />
         {errors.testcase && (
@@ -325,7 +325,7 @@ const ManageContestCreateProblem = () => {
       </div>
       <div className='m-5'>
             <label className='mr-5 text-white text-xl font-bold' htmlFor="difficulty">Upload a zip of answers : </label>
-            <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' 
+            <input className='text-white border bg-gray-600 rounded-md p-1 pl-4' 
             {...register("answer")}
             name='answer' type="file" />
             {errors.testcase && (
@@ -333,7 +333,7 @@ const ManageContestCreateProblem = () => {
             )}
       </div>
       <button
-      className='m-5 bg-[#0077b6] rounded-xl p-3 w-40'
+      className='m-5 bg-blue-950 text-white rounded-xl p-3 w-40'
       type='submit'
       onClick={() => {
         setValue(

@@ -10,9 +10,9 @@ const ManageContestEditorial = () => {
   if(error) return <div>Request Failed</div>
   return (
     <div>
-      <table className='table-auto m-auto w-9/12'>
+      <table className='table-auto m-auto w-9/12 mt-10'>
         <thead>
-          <tr>
+          <tr className="outline bg-gray-600 rounded-t-md">
             <th>Index</th>
             <th>Problem Name</th>
             <th>Add</th>
@@ -21,12 +21,12 @@ const ManageContestEditorial = () => {
         <tbody>
           {
             data.map((problem,index)=>(
-              <tr key={index}>
-                <td className='text-center'>{index}</td>
+              <tr key={index} className="outline">
+                <td className='text-center'>{index+1}</td>
                 <td className='text-center'>{problem.title}</td>
                 <td className='text-center'>
                   <NavLink to={problem._id}>
-                    <button className='bg-blue-600 rounded-md p-1 m-1'>Add</button>
+                    <button className='bg-gray-400 rounded-md p-1 m-1'>Add</button>
                   </NavLink>
                 </td>
               </tr>

@@ -117,11 +117,11 @@ const CreateContest = () => {
 
   return (
     <>
-    <div className='mt-5 flex flex-col justify-center items-center font-extrabold text-2xl'>Contest Details</div>
-        <form className='p-5 bg-[#03045e] flex flex-col justify-center items-start gap-6 outline-grey w-9/12 m-auto mt-10 rounded-lg' onSubmit={handleSubmit(onSubmit)}>
+    <div className='mt-5 flex flex-col justify-center items-center font-extrabold text-2xl bg-gray-600 w-9/12 m-auto rounded-t-md'>Contest Details</div>
+        <form className='p-5 bg-black opacity-60 flex flex-col justify-center items-start gap-6 outline-grey w-9/12 m-auto mt-10 rounded-lg mb-10' onSubmit={handleSubmit(onSubmit)}>
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="contestName">Name of the Contest : </label>
-              <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' name='contestName' 
+              <input className='text-white border bg-gray-800 rounded-md p-1 pl-4' name='contestName' 
               {...register("contestName")}
                 aria-invalid={errors.contestName ? "true" : "false"}
               />
@@ -131,13 +131,13 @@ const CreateContest = () => {
             </div>
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="startDate">Start Date : </label>
-              <input className='text-white border bg-[#023e8a] rounded-md p-1 pl-4' type='date' name="startDate" 
+              <input className='text-white border bg-gray-800 rounded-md p-1 pl-4' type='date' name="startDate" 
               {...register("startDate",{
                 valueAsDate:true
               })}
               />
               <span className='ml-5 mr-5 text-white' >  at  </span>         
-              <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' name="startTime" {...register("startTime")}>
+              <select className='w-20 text-center text-white border bg-gray-800 rounded-md' name="startTime" {...register("startTime")}>
               <option value="00:00">00:00</option>
               <option value="00:30">00:30</option>
               <option value="01:00">01:00</option>
@@ -196,7 +196,7 @@ const CreateContest = () => {
             </div>
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="duration">Duration : </label>
-              <select className='w-20 text-center text-white border bg-[#023e8a] rounded-md' name="duration" {...register("duration")}>
+              <select className='w-20 text-center text-white border bg-gray-800 rounded-md' name="duration" {...register("duration")}>
                 <option value="00:05">00:05</option>
                 <option value="00:10">00:10</option>
                 <option value="00:30">00:30</option>
@@ -224,7 +224,7 @@ const CreateContest = () => {
                     return(
                       <div> 
                             <Multiselect
-                              style={ {chips: { background: "#023e8a" }, searchBox: { border: "none", "borderBottom": "1px solid blue", "borderRadius": "0px" } }}
+                              style={ {chips: { background: "#023e8a" }, searchBox: { border: "none", "borderBottom": "1px solid gray", "borderRadius": "0px" } }}
                               {...field}
                               inputRef={ref}
                               displayValue="name"
@@ -251,8 +251,8 @@ const CreateContest = () => {
             </div>
             <div className='m-5'>
               <div className='flex items-center w-full'>
-                <label className='mr-5 text-white text-xl font-bold' htmlFor="description">Description : </label>
-                <textarea className='text-white border bg-[#023e8a] rounded-md p-1 pl-4 caret-white w-3/5' name='description' {...register("description")}/>
+                <label className='mr-5 text-white text-xl font-bold w-1/2' htmlFor="description">Description : </label>
+                <textarea className='text-white border bg-gray-800 rounded-md p-1 pl-4 w-3/5' name='description' {...register("description")}/>
               </div>
               {errors.description && (
                 <div className='text-red-500'>{errors.description.message}</div>
@@ -261,13 +261,13 @@ const CreateContest = () => {
             <div className='m-5'>
               <div className='flex items-center w-full'>
                 <label className='mr-5 text-white text-xl font-bold' htmlFor="rules">Rules : </label>
-                <textarea className='text-white border bg-[#023e8a] p-1 pl-4 rounded-md w-3/5' name='rules' {...register("rules")}/>
+                <textarea className='text-white border bg-gray-800 rounded-md p-1 pl-4 w-3/5' name='rules' {...register("rules")}/>
               </div>
                 {errors.rules && (
                   <div className='text-red-500'>{errors.rules.message}</div>
                 )}
             </div>
-            <button className='m-5 bg-[#0077b6] rounded-xl p-3 w-40' type='submit'>Submit</button>
+            <button className='m-5 bg-blue-950 bg-opacity-100 text-white rounded-xl p-3 w-40' type='submit'>Submit</button>
         </form>
     </> 
   )

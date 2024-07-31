@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-export const useProfileSubmissionQuery = (username,options) => { 
-    const getProfileSubmission = async (username)=>{
-        const res = await fetch(`http://localhost:7700/api/submission/all?username=${username}`,{
+export const useBlogQuery = (username, options) => { 
+    const getBlog = async (username)=>{
+        const res = await fetch(`http://localhost:7700/api/blog/managable?username=${username}`,{
             method:"GET",
             credentials:"include"
        });
@@ -14,13 +14,13 @@ export const useProfileSubmissionQuery = (username,options) => {
 
     const queryOptions = {
         staleTime: 300,
-	    // enabled: !!id,
+	    enabled: !!username,
         ...options,
     };
 
     return useQuery(
-        ['profileSubmission'], // query keys act as dependencies
-        () => getProfileSubmission(username),
+        ['Blog', username], // query keys act as dependencies
+        () => getBlog(username),
         queryOptions
     );
 };

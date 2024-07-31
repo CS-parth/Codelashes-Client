@@ -38,10 +38,11 @@ const handleSubmit = (e) => {
     })
 };
   return (
-    <div className='w-9/12 m-auto'>
-        <form>
+    <div className='w-full m-auto'>
+    <div className='mt-5 flex flex-col justify-center items-center font-extrabold text-2xl bg-gray-600 w-9/12 m-auto rounded-t-md'>Add Editorial</div>
+        <form className='p-5 bg-black opacity-60 flex flex-col justify-center items-start gap-6 outline-grey w-9/12 m-auto mt-10 rounded-lg mb-10'>
             <div>
-                <label htmlFor='solution'>Solution : </label>
+                <label className='mr-5 text-white text-xl font-bold' htmlFor='solution'>Solution : </label>
                 <Editor
                     apiKey="dms9mfu4v0w11nkg5nl3bc5yf9rwb1oml1qot8yesdvzlwn5"
                     onInit={(evt, editor) => solutionRef.current = editor}
@@ -64,14 +65,18 @@ const handleSubmit = (e) => {
                 />
             </div>
             <div>
-                <label htmlFor='code'>Code : </label>
-                <Textarea name='code'
+                <label className='mr-5 text-white text-xl font-bold' htmlFor='code'>Code : </label>
+                <Textarea 
+                name='code'
+                className='align-middle target:ext-white border bg-gray-800 rounded-md p-1 pl-4'
                 value={code}
                 onChange={(data) => setCode(data.target.value)}/>
             </div>
             <div>
-                <label htmlFor="language">Language : </label>
-                <select value={language} 
+                <label className='mr-5 text-white text-xl font-bold' htmlFor="language">Language : </label>
+                <select 
+                  className='text-white border bg-gray-800 rounded-md p-1 pl-4'
+                  value={language} 
                   onChange={(data)=>setLanguage(data.target.value)} 
                   name="language" id="language"
                 >

@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-export const useProblemCountQuery = (options) => { 
-    const getProblemCount = async ()=>{
-        const res = await fetch(`http://localhost:7700/api/problem/count`,{
+export const useProblemCountQuery = (username,options) => { 
+    const getProblemCount = async (username)=>{
+        const res = await fetch(`http://localhost:7700/api/problem/count?username=${username}`,{
             method:"GET",
             credentials:"include"
        });
@@ -18,8 +18,8 @@ export const useProblemCountQuery = (options) => {
     };
 
     return useQuery(
-        ['problemCount'], // query keys act as dependencies
-        () => getProblemCount(),
+        ['problemCount',username], // query keys act as dependencies
+        () => getProblemCount(username),
         queryOptions
     );
 };

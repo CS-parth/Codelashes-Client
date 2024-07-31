@@ -11,11 +11,11 @@ const ManageContestLayout = () => {
   ]
   return (
     <div className="flex flex-col min-h-screen">
-        <Header list={list}/>
+        <Header color={"black"} list={list}/>
         <div className="flex-grow">
           <Outlet />
         </div>
-        <Footer color={"bar_base"}/>
+        <Footer color={"black"}/>
       </div>
   )
 }

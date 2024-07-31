@@ -1,9 +1,10 @@
 import React from 'react'
 import {useProfileContestQuery} from '../../hooks/useProfileContestsQuery'
 import moment from 'moment';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 const ProfileContests = () => {
-  const {data,isLoading,error} = useProfileContestQuery({refetchOnWindowFocus:false});
+  const {username} = useParams();
+  const {data,isLoading,error} = useProfileContestQuery(username,{refetchOnWindowFocus:false});
   if(isLoading) return <div>Loading ...</div>
   if(error) return <div>Request Failed</div>
   return (

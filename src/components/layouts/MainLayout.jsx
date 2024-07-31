@@ -13,7 +13,7 @@ const Layout = () => {
   ];
   return (
       <div className="flex flex-col min-h-screen">
-        <Header list={list}/>
+        <Header color={"bar_base"} list={list}/>
         <div className="flex-grow">
           <Outlet />
         </div>

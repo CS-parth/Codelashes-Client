@@ -11,8 +11,8 @@ ChartJs.register(CategoryScale, LinearScale, PointElement, LineElement, Title, L
 
 const Profile = () => {
   const {username} = useParams();
-  const {data:problemCount,isLoading,error} = useProblemCountQuery({refetchOnWindowFocus:false});
-  const {data:ratingData,isLoading:ratingDataIsLoading,error:ratingDataError} = useRatingQuery({refetchOnWindowFocus:false});
+  const {data:problemCount,isLoading,error} = useProblemCountQuery(username,{refetchOnWindowFocus:false});
+  const {data:ratingData,isLoading:ratingDataIsLoading,error:ratingDataError} = useRatingQuery(username,{refetchOnWindowFocus:false});
   if(isLoading || ratingDataIsLoading) return <div>Loading ...</div>
   if(error || ratingDataError) return <div>Request Failed</div>
   // console.log(ratingData);
