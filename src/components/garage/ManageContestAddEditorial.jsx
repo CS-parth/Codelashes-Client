@@ -68,7 +68,7 @@ const handleSubmit = (e) => {
                 <label className='mr-5 text-white text-xl font-bold' htmlFor='code'>Code : </label>
                 <Textarea 
                 name='code'
-                className='align-middle target:ext-white border bg-gray-800 rounded-md p-1 pl-4'
+                className='text-white align-middle target:ext-white border bg-gray-800 rounded-md p-1 pl-4'
                 value={code}
                 onChange={(data) => setCode(data.target.value)}/>
             </div>
@@ -86,7 +86,7 @@ const handleSubmit = (e) => {
                     <option value="Pythom">Python</option>
                 </select>
             </div>
-            <button type='submit' onClick={handleSubmit}>Add</button>
+            <button className='m-5 bg-blue-950 bg-opacity-100 text-white rounded-xl p-3 w-40' type='submit' onClick={handleSubmit}>Add</button>
         </form>
     </div>
   )

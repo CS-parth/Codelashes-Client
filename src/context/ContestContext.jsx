@@ -36,7 +36,6 @@ const ContestContextProvider = ({children})=>{
     // Fourth : Fetch the Contest (if isStarted)
     useEffect(()=>{
       if(id){
-        console.log("Contest Id fetched");
         fetch(`http://localhost:7700/api/contest/meta/${id}`)
         .then(async res=>{
           const response = await res.json();
@@ -57,7 +56,6 @@ const ContestContextProvider = ({children})=>{
               endDate,
               duration
           }));
-          console.log("Successfully fetched meta data");
           setisLoading(false);
           setIsMeta(true);
         })
@@ -69,20 +67,15 @@ const ContestContextProvider = ({children})=>{
 
     useEffect(()=>{
       function onContestStart(obj){
-        console.log("Got " + obj + " OnContestStart");
         if(obj.contestId == id){
-          console.log("Contest Startee from the event listersn");
           setIsStarted(true);
         }
       }
       function onContestEnd(obj){
-        console.log("Got" + obj + " OnContestEnd");
         if(obj.contestId == id){
-          console.log("Contest Ended from the event listerns");
           setIsEnded(true);
         }
       }
-      console.log("Setup of contest Listerners");
       socket.on("contestStarted",onContestStart);
       socket.on("contestEnded",onContestEnd);
   
@@ -98,19 +91,13 @@ const ContestContextProvider = ({children})=>{
         if(isMeta){
             // check contest time and
             const [hours, minutes] = Contest.startTime.split(':').map(Number);
-            const contestStartTime = moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").set({ hours, minutes, seconds: 0 });
-            const contestEndTime = moment(Contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
-            console.log(contestEndTime);
-            console.log(moment());
+            const contestStartTime = moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").set({ hours, minutes, seconds: 0 });
+            const contestEndTime = moment(Contest.endDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM");
             if(moment().isAfter(contestEndTime)){
-              console.log("Contest ended");
               setIsEnded(true);
               setIsStarted(true);
             }else if(moment().isAfter(contestStartTime)) {
-              console.log("isStarted setted");
               setIsStarted(true);
-            }else{
-              console.log("Contest Not Started yet");
             }
         }
       },[isMeta]);

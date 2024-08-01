@@ -31,13 +31,13 @@ const ContestList = ({passed}) => {
   return (
     <div>
         <table className='w-9/12 m-auto'>
-             <thead>
+             <thead className='border-b-8 border-gray-400'>
                 <tr>
                     <th>Name</th>
                     <th>Setters</th>
                     <th>Date & Time</th>
                     <th>Duration</th>
-                    <th>-</th>
+                    <th>Standing</th>
                 </tr>
              </thead>
              <tbody>
@@ -49,9 +49,9 @@ const ContestList = ({passed}) => {
               ContestList
               .filter(contest => {
                 if (passed) {
-                  return moment().isAfter(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
+                  return moment().isAfter(contest.endDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM");
                 } else {
-                  return moment().isBefore(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm");
+                  return moment().isBefore(contest.endDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM");
                 }
               })
               .map(contest => (

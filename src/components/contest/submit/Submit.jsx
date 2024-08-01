@@ -62,6 +62,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
     .then((data)=>{
       setJobId(data.jobId);
       if(refSubmit.current){
+        document.getElementById('submitBtn').innerHTML = "Verdict Checking..."
         refSubmit.current.setAttribute("disabled",true);
       } 
     })
@@ -98,6 +99,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
     if(refSubmit.current){
       setTimeout(()=>{
         refSubmit.current.removeAttribute("disabled");
+        document.getElementById('submitBtn').innerHTML = "Submit"
       },2000);
     } 
   },[verdictTrigger])
@@ -177,6 +179,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
               className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onSubmit={handleSubmit}
               ref={refSubmit}
+              id='submitBtn'
               >
               Submit
             </button>

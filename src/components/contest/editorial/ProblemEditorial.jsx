@@ -30,7 +30,7 @@ const ProblemEditorial = () => {
         
                     <article class="px-4 pb-4">
                         <p>
-                            <div className='bg-[#282A36] rounded-md p-5 text-white'>{parse(data.solution)}</div>
+                            <div className='bg-[#282A36] rounded-md p-5 text-white'>{parse(data.editorial?.solution)}</div>
                         </p>
                     </article>
                 </details>
@@ -49,8 +49,8 @@ const ProblemEditorial = () => {
         
                     <article class="px-4 pb-4">
                         <CopyBlock
-                            text={data.code}
-                            language={data.language}
+                            text={data.editorial?.code}
+                            language={data.editorial?.language}
                             theme={dracula}
                             codeBlock
                         />

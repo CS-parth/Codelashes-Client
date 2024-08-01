@@ -159,7 +159,7 @@ const UpdateContest = () => {
             <div className='m-5'>
               <label className='mr-5 text-white text-xl font-bold' htmlFor="startDate">Start Date : </label>
               <input className='text-white border bg-gray-600 rounded-md p-1 pl-4' type='date' name="startDate" 
-              defaultValue={moment(contestData.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").format("YYYY-MM-DD")}
+              defaultValue={moment(contestData.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").format("YYYY-MM-DD")}
               {...register("startDate",{
                 valueAsDate:true
               })}

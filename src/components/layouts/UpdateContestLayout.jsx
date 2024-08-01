@@ -2,6 +2,7 @@ import Header from './header/Header'
 import Footer from './footer/Footer'
 import { Outlet } from 'react-router-dom'
 import '../../../public/css/MainLayout.css';
+
 const UpdateContesLayout = () => {
   const list = [
     {title:"Update Problem",nav:"problem"},

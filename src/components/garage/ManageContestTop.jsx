@@ -16,7 +16,7 @@ const ManageContestTop = () => {
           </div>
           <div className="p-6 bg-black opacity-60 text-white">
             <p className="mb-2"><span className="font-semibold">Duration:</span> {data.duration}</p>
-            <p><span className="font-semibold">Start Date:</span> {moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").date() + "/" + Number(moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").month() + 1) + "/" + moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").year()} <b>at</b> {data.startTime}</p>
+            <p><span className="font-semibold">Start Date:</span> {moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").date() + "/" + Number(moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").month() + 1) + "/" + moment(data.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").year()} <b>at</b> {data.startTime}</p>
           </div>
       </div>
 

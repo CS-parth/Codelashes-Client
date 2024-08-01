@@ -1,9 +1,8 @@
 import moment from 'moment';
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 
 const Contest = (props) => {
-  // console.log("first");
   return (
     <tr>
         <td>
@@ -21,13 +20,13 @@ const Contest = (props) => {
         }</td>
         <td>{
             <ul>
-                <li>{moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").date()+"/"+Number(moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").month()+1)+"/"+moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss Z+HHmm").year()}</li>
+                <li>{moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").date()+"/"+Number(moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").month()+1)+"/"+moment(props.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").year()}</li>
                 <li>{props.startTime}</li>
             </ul>
 
         }</td>
         <td>{props.duration}</td>
-        <td></td>
+        <td><NavLink className="to-blue-800 hover:border-b-2">Standing</NavLink></td>
     </tr>
   )
 }

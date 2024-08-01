@@ -39,7 +39,6 @@ const AllSubmissions = () => {
                     <th>Language</th>
                     <th>Verdict</th>
                     <th>Time</th>
-                    <th>Failed Testcase</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,7 +58,6 @@ const AllSubmissions = () => {
                             verdict={submission.verdict}
                             language={submission.language}
                             time={submission.createdAt}
-                            failedTestcase={submission.failedTestcase}
                         />
                     ))
                 )}
