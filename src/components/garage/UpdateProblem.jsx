@@ -9,7 +9,8 @@ const UpdateProblem = () => {
   const {data,isLoading,error} = useSetterProblemQuery(User.username,id,{refetchOnWindowFocus:false});
   const handleDeleteClick = (e)=>{
     fetch(`http://localhost:7700/api/problem/delete/${e.target.id}`,{
-      method:"POST"
+      method:"POST",
+      "credentials": "include"
     })
     .then(async res=>{
       const response = await res.json();
@@ -19,6 +20,7 @@ const UpdateProblem = () => {
       throw new Error(response.message);
     })
     .then(data=>{
+        window.location.reload();
         console.log(data);
     })
     .catch(err=>{

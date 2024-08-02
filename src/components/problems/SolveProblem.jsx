@@ -53,8 +53,8 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
 
   const submitHandler = (e)=>{
     e.preventDefault();
-    console.log(formData);
     // make request to the backend
+    const onError = (msg) => toast.error(msg);
     fetch("http://localhost:7700/api/judge/submit",{
       method: "POST",
       body: JSON.stringify({ username: User.username, contest: id, roomId: roomId, problem: pid, code: formData.code}),
@@ -75,17 +75,17 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
       setJobId(data.jobId);
       if(refSubmit.current){
         refSubmit.current.setAttribute("disabled",true);
+        document.getElementById('submitBtn').innerHTML = "Verdict Checking...";
       } 
     })
     .catch((err)=>{
-      console.error(err);
+      onError(err);
     })
   }
 
   useEffect(()=>{
     const verdict = first;
     remove();
-    console.log("verdict: ",verdict);
     if(verdict){
       switch (verdict.finalVerdict){
         case "Accepted":
@@ -109,6 +109,7 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
     }
     if(refSubmit.current){
       setTimeout(()=>{
+        document.getElementById('submitBtn').innerHTML = "Submit";
         refSubmit.current.removeAttribute("disabled");
       },2000);
     } 
@@ -193,7 +194,7 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
                     <textarea id="code" name="code" rows="10" className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Paste your code here..." value={formData.code} onChange={changeHandler} ></textarea>
                   </div>
                   <div>
-                    <button ref={refSubmit} type="submit" className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <button id='submitBtn' ref={refSubmit} type="submit" className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Submit
                     </button>
                   </div>

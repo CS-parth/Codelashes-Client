@@ -66,9 +66,7 @@ const CreateContest = () => {
   const onSubmit = (data)=>{
     const onSuccess = () => toast.success("Contest Created Successfully",{theme:"light",autoClose:2000});
     const onError = (err) => toast.error(err,{autoClose:2000}); 
-    // contestSubmit.current = toast.loading("Loading...",{autoClose:2000});
-    // backend api /api/contest/create
-    // fetch("http:localhost:7700/api/contest/create")
+
     const formData = {
       "name": "",
       "setters": [],
@@ -85,11 +83,10 @@ const CreateContest = () => {
     formData.startTime = data.startTime;
     formData.description = data.description;
     formData.rules = data.rules;
-    console.log(formData);
     fetch("http://localhost:7700/api/contest/create",{
       method:"POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       credentials: "include",
       body: JSON.stringify(formData),
@@ -108,7 +105,7 @@ const CreateContest = () => {
       },1000);
     })
     .catch((err)=>{
-      onError(err);
+      onError(err.message);
     })
   } 
 

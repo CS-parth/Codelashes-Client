@@ -21,6 +21,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
   if (error) return <div>Error: {error}</div>;
 
   const handleSubmit = (e)=>{
+    const onError = (msg) => toast.error(msg);
     e.preventDefault();
     setError((prevData)=>({
       task:"",
@@ -67,7 +68,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
       } 
     })
     .catch((err)=>{
-      console.error(err);
+      onError(err.message);
     })
   }
 

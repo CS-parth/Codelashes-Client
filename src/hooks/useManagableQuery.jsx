@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
-export const useManagableQuery = (username, options) => { 
-    const getManagableContest = async (username)=>{
-        const res = await fetch(`http://localhost:7700/api/contest/managable?username=${username}`,{
+export const useManagableQuery = (options) => { 
+    const getManagableContest = async ()=>{
+        const res = await fetch(`http://localhost:7700/api/contest/managable`,{
             method:"GET",
             credentials:"include"
        });
@@ -14,13 +14,12 @@ export const useManagableQuery = (username, options) => {
 
     const queryOptions = {
         staleTime: 300,
-	    enabled: !!username,
         ...options,
     };
 
     return useQuery(
-        ['Managable', username], // query keys act as dependencies
-        () => getManagableContest(username),
+        ['Managable'], // query keys act as dependencies
+        () => getManagableContest(),
         queryOptions
     );
 };

@@ -26,7 +26,7 @@ const Contest = (props) => {
 
         }</td>
         <td>{props.duration}</td>
-        <td><NavLink className="to-blue-800 hover:border-b-2">Standing</NavLink></td>
+        <td><NavLink className="to-blue-800 hover:border-b-2" to={`${props.id}/standings`}>Standing</NavLink></td>
     </tr>
   )
 }

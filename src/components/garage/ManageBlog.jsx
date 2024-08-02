@@ -30,7 +30,7 @@ export const ManageBlog = () => {
                                     {blog.title}
                                 </NavLink>
                             </td>
-                            <td><button>Edit</button></td>
+                            <td className='text-center'><button className='bg-gray-600 text-white rounded-md p-1 m-1'>Edit</button></td>
                         </tr>
                     ))
                 }

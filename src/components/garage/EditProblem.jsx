@@ -79,6 +79,7 @@ const ManageContestCreateProblem = () => {
     }
     fetch(`http://localhost:7700/api/problem/edit/${pid}`, {
       method: "POST",
+      "credentials": "include",
       body: formData
     })
     .then(async (res)=>{

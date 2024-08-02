@@ -77,6 +77,7 @@ const ManageContestCreateProblem = () => {
     }
     fetch("http://localhost:7700/api/problem/create", {
       method: "POST",
+      credentials: "include",
       body: formData
     })
     .then(async (res)=>{
@@ -93,7 +94,7 @@ const ManageContestCreateProblem = () => {
       },1000);
     })
     .catch((err)=>{
-      onError(err);
+      onError(err.message);
     })
   } 
   return (

@@ -1,8 +1,11 @@
 import React from 'react'
+import ComingSoon from '../trash/ComingSoon';
 
 const Sessions = () => {
   return (
-    <div>Sessions</div>
+    <>
+      <ComingSoon/>
+    </>
   )
 }
 

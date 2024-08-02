@@ -92,7 +92,6 @@ const UpdateContest = () => {
   const onSubmit = (data)=>{
     const onSuccess = () => toast.success("Contest Updated Successfully",{theme:"light",autoClose:2000});
     const onError = (err) => toast.error(err,{autoClose:2000}); 
-    // console.log(data);
     const formData = {
       "name": "",
       "setters": [],
@@ -111,7 +110,6 @@ const UpdateContest = () => {
     formData.description = data.description;
     formData.rules = data.rules;
     formData.problems = data.problems;
-    console.log(formData);
     fetch(`http://localhost:7700/api/contest/edit/${id}`,{
       method:"POST",
       headers: {
@@ -129,18 +127,14 @@ const UpdateContest = () => {
     })
     .then((data)=>{
       onSuccess();
-      // setTimeout(()=>{
-      //   navigate(`/garage/contest/manage/${data.id}`);
-      // },1000);
     })
     .catch((err)=>{
-      onError(err);
+      onError(err.message);
     })
   } 
 
 	if (settersisLoading || contestisLoading) return <div>Loading...</div>;
   if (settersError || contestError) return <div>Request Failed</div>;
-  console.log(errors);
   return (
     <>
         <div className='mt-5 flex flex-col justify-center items-center font-extrabold text-2xl bg-gray-600 w-9/12 m-auto rounded-t-md'>Contest Details</div>

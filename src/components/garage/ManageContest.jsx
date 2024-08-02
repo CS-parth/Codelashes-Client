@@ -4,8 +4,7 @@ import useSession from '../../context/SessionContext';
 import { NavLink } from 'react-router-dom';
 
 export const ManageContest = () => {
-  const {User} = useSession();
-  const {data,isLoading,error} = useManagableQuery(User.username);
+  const {data,isLoading,error} = useManagableQuery({refetchOnWindowFocus:false});
 
   if(isLoading) return <div>Loading ....</div>
   if(error) return <div>Request Failed</div>
