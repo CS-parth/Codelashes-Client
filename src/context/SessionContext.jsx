@@ -70,23 +70,33 @@ export const SessionContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Run updateUser() and get the user details and set it to User
-    fetch("https://codelashes-server.onrender.com/api/auth/user",{
-      headers: {
-      'Content-Type': 'application/json'
-      },
-      credentials:'include'
+    fetch("https://codelashes-server.onrender.com/api/auth/user", {
+      method: "GET",
+      credentials: 'include'
     })
-    .then((res)=>{
-      if(res.data.success){
-        setUser(()=>({
-          username: res.data.user.username,
-          email: res.data.user.email
-        }))
-        setIsLoading(false);
+    .then(res => {
+      if (res.ok) { 
+        return res.json(); 
+      } else {
+        throw new Error('Network response was not ok');
       }
     })
-    .catch(err=>console.log(err));
-  },[])
+    .then(data => {
+      if (data.success) { 
+        setUser({
+          username: data.user.username,
+          email: data.user.email
+        });
+        setIsLoading(false);
+      } else {
+        console.log('Data not successful:', data.message);
+      }
+    })
+    .catch(err => {
+      console.log('Fetch error:', err);
+      setIsLoading(false); 
+    });
+  }, []);
 
   return (
     <SessionContext.Provider value={{ User, updateUser, login, logout, isLoading, error }}>
