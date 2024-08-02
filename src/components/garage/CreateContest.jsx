@@ -83,7 +83,7 @@ const CreateContest = () => {
     formData.startTime = data.startTime;
     formData.description = data.description;
     formData.rules = data.rules;
-    fetch("http://localhost:7700/api/contest/create",{
+    fetch("https://codelashes-server.onrender.com/api/contest/create",{
       method:"POST",
       headers: {
         "Content-Type": "application/json"

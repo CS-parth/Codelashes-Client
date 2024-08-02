@@ -8,7 +8,7 @@ const ContestList = ({passed}) => {
     const [isLoading,setisLoading] = useState(true);
     const [error,setError] = useState(null);
     useEffect(()=>{
-      fetch("http://localhost:7700/api/contest/all")
+      fetch("https://codelashes-server.onrender.com/api/contest/all")
       .then(async (res)=>{
         const response = await res.json();
         if(!res.ok){

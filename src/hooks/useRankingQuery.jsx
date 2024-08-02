@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useRankingQuery = (id, options) => { 
     const getRanking = async (contestId)=>{
-        const res = await fetch(`http://localhost:7700/api/result/${contestId}`,{
+        const res = await fetch(`https://codelashes-server.onrender.com/api/result/${contestId}`,{
             method:"GET",
             credentials:"include"
        });

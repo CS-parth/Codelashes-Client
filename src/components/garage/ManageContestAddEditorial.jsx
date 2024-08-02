@@ -15,7 +15,7 @@ const handleSubmit = (e) => {
     e.preventDefault();
     const onSuccess = ()=>toast.success("Editorial Added Succeddfully");
     const onError = (msg)=>toast.error(msg);
-    fetch(`http://localhost:7700/api/problem/editorial/${pid}`,{
+    fetch(`https://codelashes-server.onrender.com/api/problem/editorial/${pid}`,{
       method:"POST",
       credentials:"include",
       headers:{

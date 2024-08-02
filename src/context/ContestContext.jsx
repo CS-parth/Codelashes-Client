@@ -36,7 +36,7 @@ const ContestContextProvider = ({children})=>{
     // Fourth : Fetch the Contest (if isStarted)
     useEffect(()=>{
       if(id){
-        fetch(`http://localhost:7700/api/contest/meta/${id}`)
+        fetch(`https://codelashes-server.onrender.com/api/contest/meta/${id}`)
         .then(async res=>{
           const response = await res.json();
           if(res.ok){
@@ -107,7 +107,7 @@ const ContestContextProvider = ({children})=>{
       if(isStarted){
         setError(null);  
         setisLoading(true);
-        fetch(`http://localhost:7700/api/contest/${id}`)
+        fetch(`https://codelashes-server.onrender.com/api/contest/${id}`)
         .then(async (res)=>{
           console.log(res);
           if(!res.ok){

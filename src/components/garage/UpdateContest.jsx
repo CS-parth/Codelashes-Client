@@ -110,7 +110,7 @@ const UpdateContest = () => {
     formData.description = data.description;
     formData.rules = data.rules;
     formData.problems = data.problems;
-    fetch(`http://localhost:7700/api/contest/edit/${id}`,{
+    fetch(`https://codelashes-server.onrender.com/api/contest/edit/${id}`,{
       method:"POST",
       headers: {
         "Content-Type": "application/json",

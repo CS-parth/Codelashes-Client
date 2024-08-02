@@ -13,7 +13,7 @@ const ProblemList = ({status,difficulty,acceptance}) => {
         ...(difficulty && { difficulty }),
         ...(acceptance && { acceptance })
       });
-      fetch(`http://localhost:7700/api/problem/all?${queryParams}`,{
+      fetch(`https://codelashes-server.onrender.com/api/problem/all?${queryParams}`,{
         method:"GET",
         credentials:"include"
       })

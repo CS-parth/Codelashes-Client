@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useProfileSubmissionQuery = (username,options) => { 
     const getProfileSubmission = async (username)=>{
-        const res = await fetch(`http://localhost:7700/api/submission/all?username=${username}`,{
+        const res = await fetch(`https://codelashes-server.onrender.com/api/submission/all?username=${username}`,{
             method:"GET",
             credentials:"include"
        });

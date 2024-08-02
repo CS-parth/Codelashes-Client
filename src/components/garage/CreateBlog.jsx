@@ -15,7 +15,7 @@ const CreateBlog = () => {
     console.log("first");
     const onSuccess = () => {toast.success("Blog Created Successfully")}
     const onError = (msg) => {toast.error(msg)}
-    fetch("http://localhost:7700/api/blog/create", {
+    fetch("https://codelashes-server.onrender.com/api/blog/create", {
       method: "POST",
       credentials: "include",
       headers: {

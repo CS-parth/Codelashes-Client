@@ -75,7 +75,7 @@ const ManageContestCreateProblem = () => {
     if (answer) {
       formData.append('answer', answer);
     }
-    fetch("http://localhost:7700/api/problem/create", {
+    fetch("https://codelashes-server.onrender.com/api/problem/create", {
       method: "POST",
       credentials: "include",
       body: formData

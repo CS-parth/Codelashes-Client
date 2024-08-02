@@ -8,7 +8,7 @@ const UpdateProblem = () => {
   const {id,cid} = useParams();
   const {data,isLoading,error} = useSetterProblemQuery(User.username,id,{refetchOnWindowFocus:false});
   const handleDeleteClick = (e)=>{
-    fetch(`http://localhost:7700/api/problem/delete/${e.target.id}`,{
+    fetch(`https://codelashes-server.onrender.com/api/problem/delete/${e.target.id}`,{
       method:"POST",
       "credentials": "include"
     })

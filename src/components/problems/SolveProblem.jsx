@@ -13,7 +13,7 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
   const { User } = useSession();
 
   useEffect(()=> {
-    fetch(`http://localhost:7700/api/problem/${pid}`,{
+    fetch(`https://codelashes-server.onrender.com/api/problem/${pid}`,{
       method:"GET",
       credentials:"include"
     })
@@ -55,7 +55,7 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
     e.preventDefault();
     // make request to the backend
     const onError = (msg) => toast.error(msg);
-    fetch("http://localhost:7700/api/judge/submit",{
+    fetch("https://codelashes-server.onrender.com/api/judge/submit",{
       method: "POST",
       body: JSON.stringify({ username: User.username, contest: id, roomId: roomId, problem: pid, code: formData.code}),
       headers: {

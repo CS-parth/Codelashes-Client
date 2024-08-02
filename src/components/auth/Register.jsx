@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const loginSubmitHandler = () =>{
-        axios.post(`http://localhost:7700/api/auth/signup`, { username,email,password })
+        axios.post(`http://localhost:770/api/auth/signup`, { username,email,password })
              .then((res) => {
                 if(res.data.success){
                     updateUser(username,email);

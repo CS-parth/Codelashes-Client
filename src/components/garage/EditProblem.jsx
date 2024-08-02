@@ -77,7 +77,7 @@ const ManageContestCreateProblem = () => {
     if (answer) {
       formData.append('answer', answer);
     }
-    fetch(`http://localhost:7700/api/problem/edit/${pid}`, {
+    fetch(`https://codelashes-server.onrender.com/api/problem/edit/${pid}`, {
       method: "POST",
       "credentials": "include",
       body: formData

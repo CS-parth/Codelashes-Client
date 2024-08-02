@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useAuthQuery = (options) => { 
     const getAuth = async (contestId)=>{
-        const res = await fetch(`http://localhost:7700/api/user/auth`,{
+        const res = await fetch(`https://codelashes-server.onrender.com/api/user/auth`,{
             method:"GET",
             credentials:"include"
        });

@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useBlogQuery = (username, options) => { 
     const getBlog = async (username)=>{
-        const res = await fetch(`http://localhost:7700/api/blog/managable?username=${username}`,{
+        const res = await fetch(`https://codelashes-server.onrender.com/api/blog/managable?username=${username}`,{
             method:"GET",
             credentials:"include"
        });

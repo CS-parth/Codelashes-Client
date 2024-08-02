@@ -44,7 +44,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
     }
     // console.log(formData);
     // make request to the backend
-    fetch("http://localhost:7700/api/judge/submit",{
+    fetch("https://codelashes-server.onrender.com/api/judge/submit",{
       method: "POST",
       body: JSON.stringify({ username: User.username, contest: Contest._id, roomId: roomId, problem: selectedTask, code: sourceCode}),
       headers: {

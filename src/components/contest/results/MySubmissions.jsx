@@ -8,7 +8,7 @@ const MySubmissions = () => {
     const [error,setError] = useState(null);
     const [mySubmissions,setMySubmissions] = useState();
     useEffect(()=>{
-        fetch(`http://localhost:7700/api/submission/my/${id}`)
+        fetch(`https://codelashes-server.onrender.com/api/submission/my/${id}`)
         .then(async (res)=>{
             // console.log(res);
             const response = await res.json();

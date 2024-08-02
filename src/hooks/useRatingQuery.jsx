@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useRatingQuery = (username,options) => { 
     const getRating = async (username)=>{
-        const res = await fetch(`http://localhost:7700/api/user/rating?username=${username}`,{
+        const res = await fetch(`https://codelashes-server.onrender.com/api/user/rating?username=${username}`,{
             method:"GET",
             credentials:"include"
        });
