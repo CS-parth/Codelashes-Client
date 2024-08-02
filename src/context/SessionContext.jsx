@@ -70,11 +70,11 @@ export const SessionContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Run updateUser() and get the user details and set it to User
-    axios("https://codelashes-server.onrender.com/api/auth/user",{
+    fetch("https://codelashes-server.onrender.com/api/auth/user",{
       headers: {
       'Content-Type': 'application/json'
       },
-      credentials: true
+      credentials:'include'
     })
     .then((res)=>{
       if(res.data.success){
