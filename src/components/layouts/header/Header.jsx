@@ -3,9 +3,6 @@ import {Link,NavLink, useNavigate} from 'react-router-dom'
 import useUser from "../../../context/SessionContext"
 const Header = ({list,color}) => {
   const {User,logout} = useUser();  
-  const logoutHandler = () =>{
-      logout();
-  }
   return (
     <>
         <div className={`lg:text-lg md:text-sm flex flex-row items-center justify-between h-5 ${color=="black" ? `bg-black` : `bg-bar_base`} w-9/12 m-auto mt-5 rounded-lg p-5 shadow-xl ${color == "black" ? "text-white" : null}`}>

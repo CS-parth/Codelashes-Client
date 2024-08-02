@@ -24,11 +24,9 @@ export const SessionContextProvider = ({ children }) => {
 
   const updateUser = (username, email) => {
     setUser({ username, email });
-    localStorage.setItem('User', JSON.stringify(User));
   };
   
   const login = (username,email,password) => {
-    console.log("first");
     const API_URL = process.env.NODE_ENV === 'production' 
     ? 'https://codelashes-server.onrender.com'
     : 'http://localhost:7700';
