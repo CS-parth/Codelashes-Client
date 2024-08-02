@@ -23,6 +23,7 @@ export const SessionContextProvider = ({ children }) => {
   const [error,setError] = useState(null);
   const updateUser = (username, email) => {
     setUser({ username, email });
+    localStorage.setItem('User', JSON.stringify(User));
   };
   
   const login = (username,email,password) => {
