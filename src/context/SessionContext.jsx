@@ -70,24 +70,22 @@ export const SessionContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Run updateUser() and get the user details and set it to User
-    if(token){
-      axios("https://codelashes-server.onrender.com/api/auth/user",{
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        credentials: true
-      })
-      .then((res)=>{
-        if(res.data.success){
-          setUser(()=>({
-            username: res.data.user.username,
-            email: res.data.user.email
-          }))
-          setIsLoading(false);
-        }
-      })
-      .catch(err=>console.log(err));
-    }
+    axios("https://codelashes-server.onrender.com/api/auth/user",{
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      credentials: true
+    })
+    .then((res)=>{
+      if(res.data.success){
+        setUser(()=>({
+          username: res.data.user.username,
+          email: res.data.user.email
+        }))
+        setIsLoading(false);
+      }
+    })
+    .catch(err=>console.log(err));
   },[])
 
   return (
