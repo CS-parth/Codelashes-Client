@@ -10,7 +10,7 @@ const AllSubmissions = () => {
     const [error,setError] = useState(null);
     const [mySubmissions,setMySubmissions] = useState();
     useEffect(()=>{
-        fetch(`${process.env.REACT_APP_API_URL}/api/submission/all/${id}`)
+        fetch(`https://codelashes-server.onrender.com/api/submission/all/${id}`)
         .then(async (res)=>{
             // console.log(res);
             const response = await res.json();
