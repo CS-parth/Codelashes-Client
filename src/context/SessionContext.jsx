@@ -15,6 +15,9 @@ export const SessionContext  = createContext({
 export const SessionProvider = SessionContext.Provider; // Just working as a variable for ContextProvider (for Just Parent Components)
 
 export const SessionContextProvider = ({ children }) => {
+  const API_URL = process.env.NODE_ENV === 'production' 
+                  ? 'https://codelashes-server.onrender.com'
+                  : 'http://localhost:7700';
   const [User, setUser] = useState({ username: null, email: null });
   const [isLoading,setIsLoading] = useState(true);
   const [error,setError] = useState(null);
@@ -23,7 +26,10 @@ export const SessionContextProvider = ({ children }) => {
   };
   
   const login = (username,email,password) => {
-        fetch(`https://codelashes-server.onrender.com/api/auth/signin`, { 
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
+        fetch(`${API_URL}/api/auth/signin`, { 
                 method:"POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -47,7 +53,10 @@ export const SessionContextProvider = ({ children }) => {
   };
 
   const logout = () => {
-    fetch("https://codelashes-server.onrender.com/api/auth/logout",{
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
+    fetch(`${API_URL}/api/auth/logout`,{
       method:"POST",
       credentials:"include"
     })
@@ -70,7 +79,7 @@ export const SessionContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Run updateUser() and get the user details and set it to User
-    fetch(`${process.env.API_URL}/api/auth/user`, {
+    fetch(`${API_URL}/api/auth/user`, {
       method: "GET",
       credentials: 'include'
     })

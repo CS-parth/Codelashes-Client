@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
 export const useSetterProblemQuery = (username,contestId, options) => { 
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';  
     const getSetterProblem = async (username,contestId)=>{
-        const res = await fetch(`https://codelashes-server.onrender.com/api/problem/managable?username=${username}&contestId=${contestId}`,{
+        const res = await fetch(`${API_URL}/api/problem/managable?username=${username}&contestId=${contestId}`,{
             method:"GET",
             credentials:"include"
        });

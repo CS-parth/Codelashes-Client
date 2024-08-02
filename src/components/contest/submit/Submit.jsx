@@ -21,6 +21,9 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
   if (error) return <div>Error: {error}</div>;
 
   const handleSubmit = (e)=>{
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700'; 
     const onError = (msg) => toast.error(msg);
     e.preventDefault();
     setError((prevData)=>({
@@ -44,7 +47,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
     }
     // console.log(formData);
     // make request to the backend
-    fetch("https://codelashes-server.onrender.com/api/judge/submit",{
+    fetch(`${API_URL}/api/judge/submit`,{
       method: "POST",
       body: JSON.stringify({ username: User.username, contest: Contest._id, roomId: roomId, problem: selectedTask, code: sourceCode}),
       headers: {

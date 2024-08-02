@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
-export const useEditorialQuery = (id, options) => { 
+export const useEditorialQuery = (id, options000) => {
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';  
     const getEditorial = async (problemId)=>{
-        const res = await fetch(`https://codelashes-server.onrender.com/api/problem/editorial/${problemId}`,{
+        const res = await fetch(`${API_URL}/api/problem/editorial/${problemId}`,{
             method:"GET",
             credentials:"include"
        });

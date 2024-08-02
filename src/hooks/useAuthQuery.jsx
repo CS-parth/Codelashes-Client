@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
 export const useAuthQuery = (options) => { 
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     const getAuth = async (contestId)=>{
-        const res = await fetch(`https://codelashes-server.onrender.com/api/user/auth`,{
+        const res = await fetch(`${API_URL}/api/user/auth`,{
             method:"GET",
             credentials:"include"
        });

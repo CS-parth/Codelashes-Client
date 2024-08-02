@@ -35,8 +35,11 @@ const ContestContextProvider = ({children})=>{
     // Third : try to set isStarted and isEnded accordingly (if I have the meta data) 
     // Fourth : Fetch the Contest (if isStarted)
     useEffect(()=>{
+      const API_URL = process.env.NODE_ENV === 'production' 
+      ? 'https://codelashes-server.onrender.com'
+      : 'http://localhost:7700';
       if(id){
-        fetch(`https://codelashes-server.onrender.com/api/contest/meta/${id}`)
+        fetch(`${API_URL}/api/contest/meta/${id}`)
         .then(async res=>{
           const response = await res.json();
           if(res.ok){
@@ -104,10 +107,13 @@ const ContestContextProvider = ({children})=>{
 
 
     useEffect(()=> {
+      const API_URL = process.env.NODE_ENV === 'production' 
+      ? 'https://codelashes-server.onrender.com'
+      : 'http://localhost:7700';
       if(isStarted){
         setError(null);  
         setisLoading(true);
-        fetch(`https://codelashes-server.onrender.com/api/contest/${id}`)
+        fetch(`${API_URL}/api/contest/${id}`)
         .then(async (res)=>{
           console.log(res);
           if(!res.ok){

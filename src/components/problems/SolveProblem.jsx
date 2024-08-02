@@ -13,7 +13,10 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
   const { User } = useSession();
 
   useEffect(()=> {
-    fetch(`https://codelashes-server.onrender.com/api/problem/${pid}`,{
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
+    fetch(`${API_URL}/api/problem/${pid}`,{
       method:"GET",
       credentials:"include"
     })
@@ -52,10 +55,13 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
   
 
   const submitHandler = (e)=>{
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     e.preventDefault();
     // make request to the backend
     const onError = (msg) => toast.error(msg);
-    fetch("https://codelashes-server.onrender.com/api/judge/submit",{
+    fetch(`${API_URL}/api/judge/submit`,{
       method: "POST",
       body: JSON.stringify({ username: User.username, contest: id, roomId: roomId, problem: pid, code: formData.code}),
       headers: {

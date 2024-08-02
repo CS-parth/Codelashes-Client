@@ -4,11 +4,14 @@ import { useEffect,useState } from 'react';
 import moment from 'moment';
 const ContestList = ({passed}) => {
     // useEffect hook for the fetching part
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     const [ContestList,setContestList] = useState(null);
     const [isLoading,setisLoading] = useState(true);
     const [error,setError] = useState(null);
     useEffect(()=>{
-      fetch("https://codelashes-server.onrender.com/api/contest/all")
+      fetch(`${API_URL}/api/contest/all`)
       .then(async (res)=>{
         const response = await res.json();
         if(!res.ok){

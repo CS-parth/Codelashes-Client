@@ -58,6 +58,9 @@ const ManageContestCreateProblem = () => {
   }
   );
   const onSubmit = (data)=>{
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     const onSuccess = () => toast.success("Problem Edited Successfully");
     const onError = (err) => toast.error(err);
     // data.contest = id;
@@ -77,7 +80,7 @@ const ManageContestCreateProblem = () => {
     if (answer) {
       formData.append('answer', answer);
     }
-    fetch(`https://codelashes-server.onrender.com/api/problem/edit/${pid}`, {
+    fetch(`${API_URL}/api/problem/edit/${pid}`, {
       method: "POST",
       "credentials": "include",
       body: formData

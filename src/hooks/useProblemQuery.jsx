@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
-export const useProblemQuery = (id, options) => { 
+export const useProblemQuery = (id, options) => {
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';  
     const getProblem = async (problemId)=>{
-        const res = await fetch(`https://codelashes-server.onrender.com/api/problem/${problemId}`,{
+        const res = await fetch(`${API_URL}/api/problem/${problemId}`,{
             method:"GET",
             credentials:"include"
        });

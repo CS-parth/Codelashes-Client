@@ -90,6 +90,9 @@ const UpdateContest = () => {
   }
   );
   const onSubmit = (data)=>{
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     const onSuccess = () => toast.success("Contest Updated Successfully",{theme:"light",autoClose:2000});
     const onError = (err) => toast.error(err,{autoClose:2000}); 
     const formData = {
@@ -110,7 +113,7 @@ const UpdateContest = () => {
     formData.description = data.description;
     formData.rules = data.rules;
     formData.problems = data.problems;
-    fetch(`https://codelashes-server.onrender.com/api/contest/edit/${id}`,{
+    fetch(`${API_URL}/api/contest/edit/${id}`,{
       method:"POST",
       headers: {
         "Content-Type": "application/json",

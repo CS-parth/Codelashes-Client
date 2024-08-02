@@ -5,6 +5,9 @@ import { useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 const CreateBlog = () => {
+  const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://codelashes-server.onrender.com'
+  : 'http://localhost:7700';
   const navigate = useNavigate();
   const {pid} = useParams();
   const blogEditorRef = useRef(null);
@@ -15,7 +18,7 @@ const CreateBlog = () => {
     console.log("first");
     const onSuccess = () => {toast.success("Blog Created Successfully")}
     const onError = (msg) => {toast.error(msg)}
-    fetch("https://codelashes-server.onrender.com/api/blog/create", {
+    fetch(`${API_URL}/api/blog/create`, {
       method: "POST",
       credentials: "include",
       headers: {

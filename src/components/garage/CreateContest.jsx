@@ -64,6 +64,9 @@ const CreateContest = () => {
   }
   );
   const onSubmit = (data)=>{
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     const onSuccess = () => toast.success("Contest Created Successfully",{theme:"light",autoClose:2000});
     const onError = (err) => toast.error(err,{autoClose:2000}); 
 
@@ -83,7 +86,7 @@ const CreateContest = () => {
     formData.startTime = data.startTime;
     formData.description = data.description;
     formData.rules = data.rules;
-    fetch("https://codelashes-server.onrender.com/api/contest/create",{
+    fetch(`${API_URL}/api/contest/create`,{
       method:"POST",
       headers: {
         "Content-Type": "application/json"

@@ -12,10 +12,13 @@ const ManageContestAddEditorial = () => {
   const [language,setLanguage] = useState('C');
 
 const handleSubmit = (e) => {
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     e.preventDefault();
     const onSuccess = ()=>toast.success("Editorial Added Succeddfully");
     const onError = (msg)=>toast.error(msg);
-    fetch(`https://codelashes-server.onrender.com/api/problem/editorial/${pid}`,{
+    fetch(`${API_URL}/api/problem/editorial/${pid}`,{
       method:"POST",
       credentials:"include",
       headers:{

@@ -1,7 +1,10 @@
 import { useQuery } from "react-query";
 export const useAllBlogsQuery = (options) => { 
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     const getAllBlog = async () => {
-        const res = await fetch(`https://codelashes-server.onrender.com/api/blog/all`,{
+        const res = await fetch(`${API_URL}/api/blog/all`,{
             method:"GET",
             credentials:"include"
        });

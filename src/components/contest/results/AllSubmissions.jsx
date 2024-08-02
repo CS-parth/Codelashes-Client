@@ -4,13 +4,16 @@ import Submission from './Submission';
 import useSession from '../../../context/SessionContext';
 
 const AllSubmissions = () => {
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700'; 
     const { User } = useSession();
     const { id } = useParams();
     const [isLoading,setIsLoading] = useState(true);
     const [error,setError] = useState(null);
     const [mySubmissions,setMySubmissions] = useState();
     useEffect(()=>{
-        fetch(`https://codelashes-server.onrender.com/api/submission/all/${id}`)
+        fetch(`${API_URL}/api/submission/all/${id}`)
         .then(async (res)=>{
             // console.log(res);
             const response = await res.json();

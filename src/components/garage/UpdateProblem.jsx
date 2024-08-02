@@ -4,11 +4,14 @@ import useSession from '../../context/SessionContext';
 import { useParams, NavLink } from 'react-router-dom';
 
 const UpdateProblem = () => {
+  const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://codelashes-server.onrender.com'
+  : 'http://localhost:7700';
   const {User} = useSession();
   const {id,cid} = useParams();
   const {data,isLoading,error} = useSetterProblemQuery(User.username,id,{refetchOnWindowFocus:false});
   const handleDeleteClick = (e)=>{
-    fetch(`https://codelashes-server.onrender.com/api/problem/delete/${e.target.id}`,{
+    fetch(`${API_URL}/api/problem/delete/${e.target.id}`,{
       method:"POST",
       "credentials": "include"
     })

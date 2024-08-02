@@ -7,13 +7,16 @@ const ProblemList = ({status,difficulty,acceptance}) => {
   const [error,setError] = useState(null);
   // const {User} = useSession();
   useEffect(() => {
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
     // if(User){
       const queryParams = new URLSearchParams({
         ...(status && { status }),
         ...(difficulty && { difficulty }),
         ...(acceptance && { acceptance })
       });
-      fetch(`https://codelashes-server.onrender.com/api/problem/all?${queryParams}`,{
+      fetch(`${API_URL}/api/problem/all?${queryParams}`,{
         method:"GET",
         credentials:"include"
       })
