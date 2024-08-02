@@ -1,7 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthQuery } from '../hooks/useAuthQuery';
 const AuthWrapper = ({ children }) => {
-  const User = JSON.parse(localStorage.getItem('User'));
   const {data:isUser,isLoading,error} = useAuthQuery({refetchOnWindowFocus:false});
   const location = useLocation();
 

@@ -70,23 +70,23 @@ export const SessionContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Run updateUser() and get the user details and set it to User
-    const token = cookies.get("jwt");
     if(token){
       axios("https://codelashes-server.onrender.com/api/auth/user",{
         headers: {
-        'authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
-       }}).then((res)=>{
-            if(res.data.success){
-              setUser(()=>({
-                username: res.data.user.username,
-                email: res.data.user.email
-              }))
-              setIsLoading(false);
-            }
-          })
-          .catch(err=>console.log(err));
-
+        },
+        credentials: true
+      })
+      .then((res)=>{
+        if(res.data.success){
+          setUser(()=>({
+            username: res.data.user.username,
+            email: res.data.user.email
+          }))
+          setIsLoading(false);
+        }
+      })
+      .catch(err=>console.log(err));
     }
   },[])
 
