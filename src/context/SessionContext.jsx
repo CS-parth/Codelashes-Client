@@ -70,7 +70,7 @@ export const SessionContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Run updateUser() and get the user details and set it to User
-    fetch(`${process.env.REACT_APP_API_URL}/api/auth/user`, {
+    fetch(`${process.env.API_URL}/api/auth/user`, {
       method: "GET",
       credentials: 'include'
     })
