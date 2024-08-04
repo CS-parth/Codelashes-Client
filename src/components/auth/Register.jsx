@@ -12,8 +12,11 @@ const Login = () => {
   const [password,setPassword] = useState("");
   const navigate = useNavigate();
   const cookies = new Cookies();
+  const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://codelashes-server.onrender.com'
+  : 'http://localhost:7700'; 
   const loginSubmitHandler = () =>{
-        axios.post(`http://localhost:770/api/auth/signup`, { username,email,password })
+        axios.post(`${API_URL}/api/auth/signup`, { username,email,password })
              .then((res) => {
                 if(res.data.success){
                     updateUser(username,email);
