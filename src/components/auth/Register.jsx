@@ -5,7 +5,7 @@ import useUser from '../../context/SessionContext';
 import  { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 
-const Login = () => {
+const Register = () => {
   const {updateUser} = useUser();
   const [username,setUsername] = useState("");
   const [email,setEmail] = useState("");
@@ -92,4 +92,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register
