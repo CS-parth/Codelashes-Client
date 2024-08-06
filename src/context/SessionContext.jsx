@@ -8,6 +8,7 @@ export const SessionContext  = createContext({
         "email": null
     },
     updateUser: () => {},
+    register: () => {},
     login : () => {},
     logout : () => {}
 })
@@ -26,6 +27,33 @@ export const SessionContextProvider = ({ children }) => {
     setUser({ username, email });
   };
   
+  const register = (username,email,password) => {
+    const API_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://codelashes-server.onrender.com'
+    : 'http://localhost:7700';
+        fetch(`${API_URL}/api/auth/signup`, { 
+                method:"POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body:JSON.stringify({username,email,password})})
+                .then(async (res) => {
+                    const response = await res.json();
+                    if(res.ok){
+                        updateUser(username,email);
+                        setIsLoading(false);
+                        window.location.href = "/";
+                    }else{
+                      throw new Error(response.message);
+                    }
+                })
+                .catch(err=>{
+                  setError(err);
+                  isLoading(false);
+                });
+  }
+
   const login = (username,email,password) => {
     const API_URL = process.env.NODE_ENV === 'production' 
     ? 'https://codelashes-server.onrender.com'
@@ -109,7 +137,7 @@ export const SessionContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <SessionContext.Provider value={{ User, updateUser, login, logout, isLoading, error }}>
+    <SessionContext.Provider value={{ User, updateUser, register, login, logout, isLoading, error }}>
       {children}
     </SessionContext.Provider>
   );

@@ -6,7 +6,7 @@ import  { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 
 const Register = () => {
-  const {updateUser} = useUser();
+  const {register} = useUser();
   const [username,setUsername] = useState("");
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
@@ -15,17 +15,9 @@ const Register = () => {
   const API_URL = process.env.NODE_ENV === 'production' 
   ? 'https://codelashes-server.onrender.com'
   : 'http://localhost:7700'; 
-  const loginSubmitHandler = () =>{
-        axios.post(`${API_URL}/api/auth/signup`, { username,email,password })
-             .then((res) => {
-                if(res.data.success){
-                    updateUser(username,email);
-                    cookies.set('jwt',res.data.token,{path:'/'})
-                    navigate("/");
-                }
-             })
-             .catch(err=>console.error(err));
-  }
+  const registerSubmitHandler = () => {
+    register(username,email,password);
+}
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md">
@@ -76,7 +68,7 @@ const Register = () => {
         
         <Button 
           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          onClick={loginSubmitHandler}
+          onClick={registerSubmitHandler}
         >
           Sign Up
         </Button>
@@ -84,7 +76,7 @@ const Register = () => {
       <div className="text-sm text-center mt-4">
         Already have an account?{' '}
         <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-          Sign in
+          Sign Up
         </a>
       </div>
     </div>

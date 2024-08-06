@@ -11,7 +11,10 @@ const MySubmissions = () => {
     const [error,setError] = useState(null);
     const [mySubmissions,setMySubmissions] = useState();
     useEffect(()=>{
-        fetch(`${API_URL}/api/submission/my/${id}`)
+        fetch(`${API_URL}/api/submission/my/${id}`,{
+            method:"GET",
+            credentials: "include"
+        })
         .then(async (res)=>{
             // console.log(res);
             const response = await res.json();
