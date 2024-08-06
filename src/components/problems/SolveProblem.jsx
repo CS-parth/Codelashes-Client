@@ -85,7 +85,7 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
       } 
     })
     .catch((err)=>{
-      onError(err);
+      onError(err.message);
     })
   }
 

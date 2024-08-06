@@ -99,7 +99,7 @@ const ManageContestCreateProblem = () => {
       // },1000);
     })
     .catch((err)=>{
-      onError(err);
+      onError(err.message);
     })
   } 
   if(isLoading) return <div>Loading ...</div>
