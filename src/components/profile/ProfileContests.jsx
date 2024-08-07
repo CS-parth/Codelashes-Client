@@ -33,7 +33,7 @@ const ProfileContests = () => {
                         </NavLink>
                     </td>
                     <td className='text-center'>
-                      <div>{moment(contest.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").format("MMM'DD YYYY")}</div>
+                      <div>{moment(contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z").format("MMM'DD YYYY")}</div>
                       <div>{contest.startTime}</div>
                     </td>
                     <td className='text-center'>{contest.rating}</td>

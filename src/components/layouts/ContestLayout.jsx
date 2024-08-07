@@ -10,8 +10,8 @@ import Footer from './footer/Footer';
 const ContestLayout = () => {
   
   const {Contest,isLoading,error,isStarted,isEnded} = useContest();
-  const ContestEndTime = moment(Contest.endDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").toDate().getTime();
-  const ContestStartTime = moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").toDate().getTime();
+  const ContestEndTime = moment(Contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z").toDate().getTime();
+  const ContestStartTime = moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z").toDate().getTime();
   if(isLoading) return (<div>Loading</div>)
 
   if(error) return (<div>Error : ${error}</div>)

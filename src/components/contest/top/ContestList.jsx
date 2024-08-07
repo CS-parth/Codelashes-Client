@@ -52,9 +52,9 @@ const ContestList = ({passed}) => {
               ContestList
               .filter(contest => {
                 if (passed) {
-                  return moment().isAfter(contest.endDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM");
+                  return moment().isAfter(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z");
                 } else {
-                  return moment().isBefore(contest.endDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM");
+                  return moment().isBefore(contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z");
                 }
               })
               .map(contest => (

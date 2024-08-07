@@ -71,6 +71,7 @@ const ContestContextProvider = ({children})=>{
     useEffect(()=>{
       function onContestStart(obj){
         if(obj.contestId == id){
+          console.log("isStarted Setted");
           setIsStarted(true);
         }
       }
@@ -94,8 +95,8 @@ const ContestContextProvider = ({children})=>{
         if(isMeta){
             // check contest time and
             const [hours, minutes] = Contest.startTime.split(':').map(Number);
-            const contestStartTime = moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM").set({ hours, minutes, seconds: 0 });
-            const contestEndTime = moment(Contest.endDate,"ddd MMM DD YYYY HH:mm:ss GMT+HHMM");
+            const contestStartTime = moment(Contest.startDate,"ddd MMM DD YYYY HH:mm:ss Z");
+            const contestEndTime = moment(Contest.endDate,"ddd MMM DD YYYY HH:mm:ss Z");
             if(moment().isAfter(contestEndTime)){
               setIsEnded(true);
               setIsStarted(true);
