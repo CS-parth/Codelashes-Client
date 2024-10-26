@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useManagableQuery = (options) => { 
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700'; 
     const getManagableContest = async ()=>{
         const res = await fetch(`${API_URL}/api/contest/managable`,{

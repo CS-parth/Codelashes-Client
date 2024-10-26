@@ -13,7 +13,7 @@ const ManageContestAddEditorial = () => {
 
 const handleSubmit = (e) => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
     e.preventDefault();
     const onSuccess = ()=>toast.success("Editorial Added Succeddfully");

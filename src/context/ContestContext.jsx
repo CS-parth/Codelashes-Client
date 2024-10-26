@@ -36,7 +36,7 @@ const ContestContextProvider = ({children})=>{
     // Fourth : Fetch the Contest (if isStarted)
     useEffect(()=>{
       const API_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://codelashes-server.onrender.com'
+      ? 'https://codelashes-server-0f9o.onrender.com'
       : 'http://localhost:7700';
       if(id){
         fetch(`${API_URL}/api/contest/meta/${id}`)
@@ -109,7 +109,7 @@ const ContestContextProvider = ({children})=>{
 
     useEffect(()=> {
       const API_URL = process.env.NODE_ENV === 'production' 
-      ? 'https://codelashes-server.onrender.com'
+      ? 'https://codelashes-server-0f9o.onrender.com'
       : 'http://localhost:7700';
       if(isStarted){
         setError(null);  

@@ -5,7 +5,7 @@ import moment from 'moment';
 const ContestList = ({passed}) => {
     // useEffect hook for the fetching part
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
     const [ContestList,setContestList] = useState(null);
     const [isLoading,setisLoading] = useState(true);

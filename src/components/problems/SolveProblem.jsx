@@ -14,7 +14,7 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
 
   useEffect(()=> {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
     fetch(`${API_URL}/api/problem/${pid}`,{
       method:"GET",
@@ -56,7 +56,7 @@ const SolveProblem = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roo
 
   const submitHandler = (e)=>{
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
     e.preventDefault();
     // make request to the backend

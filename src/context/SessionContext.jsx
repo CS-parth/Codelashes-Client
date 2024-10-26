@@ -17,7 +17,7 @@ export const SessionProvider = SessionContext.Provider; // Just working as a var
 
 export const SessionContextProvider = ({ children }) => {
   const API_URL = process.env.NODE_ENV === 'production' 
-                  ? 'https://codelashes-server.onrender.com'
+                  ? 'https://codelashes-server-0f9o.onrender.com'
                   : 'http://localhost:7700';
   const [User, setUser] = useState({ username: null, email: null });
   const [isLoading,setIsLoading] = useState(true);
@@ -29,7 +29,7 @@ export const SessionContextProvider = ({ children }) => {
   
   const register = (username,email,password) => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
         fetch(`${API_URL}/api/auth/signup`, { 
                 method:"POST",
@@ -56,7 +56,7 @@ export const SessionContextProvider = ({ children }) => {
 
   const login = (username,email,password) => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
         fetch(`${API_URL}/api/auth/signin`, { 
                 method:"POST",
@@ -83,7 +83,7 @@ export const SessionContextProvider = ({ children }) => {
 
   const logout = () => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
     fetch(`${API_URL}/api/auth/logout`,{
       method:"POST",

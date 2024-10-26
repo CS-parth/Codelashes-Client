@@ -57,7 +57,7 @@ const ManageContestCreateProblem = () => {
   );
   const onSubmit = (data)=>{
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
     const onSuccess = () => toast.success("Problem Created Successfully");
     const onError = (err) => toast.error(err);

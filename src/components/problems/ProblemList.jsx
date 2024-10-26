@@ -8,7 +8,7 @@ const ProblemList = ({status,difficulty,acceptance}) => {
   // const {User} = useSession();
   useEffect(() => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server.onrender.com'
+    ? 'https://codelashes-server-0f9o.onrender.com'
     : 'http://localhost:7700';
     // if(User){
       const queryParams = new URLSearchParams({

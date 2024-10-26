@@ -13,7 +13,7 @@ const Register = () => {
   const navigate = useNavigate();
   const cookies = new Cookies();
   const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://codelashes-server.onrender.com'
+  ? 'https://codelashes-server-0f9o.onrender.com'
   : 'http://localhost:7700'; 
   const registerSubmitHandler = () => {
     register(username,email,password);
