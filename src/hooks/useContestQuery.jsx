@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useContestQuery = (id, options) => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server-0f9o.onrender.com'
+    ? 'https://codelashes-server-lcxc.onrender.com'
     : 'http://localhost:7700'; 
     const getContest = async (contestId)=>{
         const res = await fetch(`${API_URL}/api/contest/${contestId}`,{

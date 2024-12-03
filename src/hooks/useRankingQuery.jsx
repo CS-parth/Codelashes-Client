@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 export const useRankingQuery = (id, options) => { 
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server-0f9o.onrender.com'
+    ? 'https://codelashes-server-lcxc.onrender.com'
     : 'http://localhost:7700';  
     const getRanking = async (contestId)=>{
         const res = await fetch(`${API_URL}/api/result/${contestId}`,{

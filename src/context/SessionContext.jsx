@@ -10,14 +10,14 @@ export const SessionContext  = createContext({
     updateUser: () => {},
     register: () => {},
     login : () => {},
-    logout : () => {}
+    logout : () => {},
 })
 
 export const SessionProvider = SessionContext.Provider; // Just working as a variable for ContextProvider (for Just Parent Components)
 
 export const SessionContextProvider = ({ children }) => {
   const API_URL = process.env.NODE_ENV === 'production' 
-                  ? 'https://codelashes-server-0f9o.onrender.com'
+                  ? 'https://codelashes-server-lcxc.onrender.com'
                   : 'http://localhost:7700';
   const [User, setUser] = useState({ username: null, email: null });
   const [isLoading,setIsLoading] = useState(true);
@@ -29,7 +29,7 @@ export const SessionContextProvider = ({ children }) => {
   
   const register = (username,email,password) => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server-0f9o.onrender.com'
+    ? 'https://codelashes-server-lcxc.onrender.com'
     : 'http://localhost:7700';
         fetch(`${API_URL}/api/auth/signup`, { 
                 method:"POST",
@@ -56,7 +56,7 @@ export const SessionContextProvider = ({ children }) => {
 
   const login = (username,email,password) => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server-0f9o.onrender.com'
+    ? 'https://codelashes-server-lcxc.onrender.com'
     : 'http://localhost:7700';
         fetch(`${API_URL}/api/auth/signin`, { 
                 method:"POST",
@@ -77,13 +77,13 @@ export const SessionContextProvider = ({ children }) => {
                 })
                 .catch(err=>{
                   setError(err);
-                  isLoading(false);
+                  setIsLoading(false);
                 });
   };
 
   const logout = () => {
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server-0f9o.onrender.com'
+    ? 'https://codelashes-server-lcxc.onrender.com'
     : 'http://localhost:7700';
     fetch(`${API_URL}/api/auth/logout`,{
       method:"POST",

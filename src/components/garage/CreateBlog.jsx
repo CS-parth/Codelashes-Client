@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 const CreateBlog = () => {
   const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://codelashes-server-0f9o.onrender.com'
+  ? 'https://codelashes-server-lcxc.onrender.com'
   : 'http://localhost:7700';
   const navigate = useNavigate();
   const {pid} = useParams();

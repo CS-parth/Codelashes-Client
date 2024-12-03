@@ -22,7 +22,7 @@ const Submit = ({verdictQueue,remove,first,add,verdictTrigger,setJobId,roomId}) 
 
   const handleSubmit = (e)=>{
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server-0f9o.onrender.com'
+    ? 'https://codelashes-server-lcxc.onrender.com'
     : 'http://localhost:7700'; 
     const onError = (msg) => toast.error(msg);
     e.preventDefault();

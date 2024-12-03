@@ -65,7 +65,7 @@ const CreateContest = () => {
   );
   const onSubmit = (data)=>{
     const API_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://codelashes-server-0f9o.onrender.com'
+    ? 'https://codelashes-server-lcxc.onrender.com'
     : 'http://localhost:7700';
     const onSuccess = () => toast.success("Contest Created Successfully",{theme:"light",autoClose:2000});
     const onError = (err) => toast.error(err,{autoClose:2000}); 
