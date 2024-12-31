@@ -114,7 +114,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path='garage/contest/manage/:id/update' element={
         <AuthWrapper>
-        <UpdateContestLayout/>
+          <UpdateContestLayout/>
         </AuthWrapper>
         }>
           <Route path='problem' element={<UpdateProblem/>}/>

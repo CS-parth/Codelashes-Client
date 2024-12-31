@@ -4,6 +4,29 @@ import axios from 'axios';
 import useUser from '../../context/SessionContext';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
+import { GoogleIcon } from './GoogleIcon.jsx';
+
+export function GoogleButton(props) {
+  return (
+    <Button variant="default" {...props}>
+      <div className='flex justify-around'>
+        <div className='flex items-center'>
+          <GoogleIcon className="mr-5 size-40"/>
+        </div>
+        <div className="flex">
+          {props.children}
+        </div>
+      </div>
+    </Button>
+  );
+}
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://codelashes-server-lcxc.onrender.com'
+  : 'http://localhost:7700';
+const googleSubmitHandler = () => {
+    window.location = (API_URL+'/api/auth/google');
+}
+
 const Login = () => {
   const {login} = useUser();
   const [username,setUsername] = useState("");
@@ -63,6 +86,10 @@ const Login = () => {
       >
         Sign In
       </Button>
+      <GoogleButton  
+        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        onClick={googleSubmitHandler}
+      >Continue with Google</GoogleButton>
     </div>
     <div className="text-sm text-center mt-4">
       Don't have an account?{' '}

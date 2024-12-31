@@ -2,8 +2,25 @@ import React, { useState } from 'react'
 import { Button,Description, Field, Input, Label } from '@headlessui/react'
 import axios from 'axios';
 import useUser from '../../context/SessionContext';
-import  { useNavigate } from 'react-router-dom'
+import  { Navigate, useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
+import { GoogleIcon } from './GoogleIcon.jsx';
+
+export function GoogleButton(props) {
+  return (
+    <Button variant="default" {...props}>
+      <div className='flex justify-around'>
+        <div className='flex items-center'>
+          <GoogleIcon className="mr-5 size-40"/>
+        </div>
+        <div className="flex">
+          {props.children}
+        </div>
+      </div>
+    </Button>
+  );
+}
+
 
 const Register = () => {
   const {register} = useUser();
@@ -17,7 +34,10 @@ const Register = () => {
   : 'http://localhost:7700'; 
   const registerSubmitHandler = () => {
     register(username,email,password);
-}
+  }
+  const googleSubmitHandler = () => {
+    window.location = (API_URL+'/api/auth/google');
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md">
@@ -72,11 +92,15 @@ const Register = () => {
         >
           Sign Up
         </Button>
+        <GoogleButton 
+        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        onClick={googleSubmitHandler}
+        >Continue with Google</GoogleButton>
       </div>
       <div className="text-sm text-center mt-4">
         Already have an account?{' '}
         <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-          Sign Up
+          Sign In
         </a>
       </div>
     </div>
