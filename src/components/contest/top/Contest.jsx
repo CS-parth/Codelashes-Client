@@ -4,9 +4,9 @@ import { NavLink, Navigate } from 'react-router-dom';
 
 const Contest = (props) => {
   return (
-    <tr>
+    <tr className='hover:bg-amber-200'>
         <td>
-            <NavLink to={`${props.id}`}>
+            <NavLink to={`${props.id}`} className="hover:underline">
                 {props.name}
             </NavLink>
         </td>
