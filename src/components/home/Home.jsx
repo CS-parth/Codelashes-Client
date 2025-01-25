@@ -9,6 +9,7 @@ import Blog from '../../assets/images/Blog.png'
 import Algorithm from '../../assets/images/Algorithm_Sandy.png'
 import { Paper, Title, Text, Divider, Container } from '@mantine/core';
 import { AlertCircle, Clock } from 'lucide-react';
+import Background from '../../assets/images/Newspaper_Yellow.jpg'
 
 const Home = () => {
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -28,7 +29,7 @@ const Home = () => {
     const duplicatedNews = [...newsItems, ...newsItems];
 
   return (
-    <div className="max-w-[1400px] mx-auto p-8 bg-amber-50 mt-20 mb-20 bg-[url('src/assets/images/Newspaper_Yellow.jpg')]">
+    <div className="max-w-[1400px] mx-auto p-8 bg-amber-50 mt-20 mb-20 bg-[url('/src/assets/images/Newspaper_Yellow.jpg')]">
       <div className="mb-4 border-y-2 border-amber-800 bg-amber-100/60">
         <div className="flex items-center">
           <div className="bg-amber-800 text-white px-4 py-2 flex items-center gap-2">

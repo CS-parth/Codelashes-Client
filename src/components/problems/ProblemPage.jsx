@@ -4,7 +4,7 @@ import Problems from './Problems';
 
 const ProblemPage = () => {
   return (
-    <div className="w-9/12 m-auto mt-20 mb-20 bg-[url('src/assets/images/Newspaper_Yellow.jpg')] p-6">
+    <div className="w-9/12 m-auto mt-20 mb-20 bg-[url('./src/assets/images/Newspaper_Yellow.jpg')] p-6">
         <div className='flex justify-between items-center border-b-2 border-amber-800 pb-4'>    
         <div className='font-serif text-sm'>
                 Page 2 • Technology Section <br />

@@ -5,7 +5,7 @@ import Dunk from '../../../assets/images/Dunk.png'
 
 const Contests = () => {
   return (
-    <div className="w-9/12 m-auto mt-20 mb-20 bg-amber-50 p-6 bg-[url('src/assets/images/Newspaper_Yellow.jpg')]">
+    <div className="w-9/12 m-auto mt-20 mb-20 bg-amber-50 p-6 bg-[url('./src/assets/images/Newspaper_Yellow.jpg')]">
       <div className='flex justify-between items-center border-b-2 border-amber-800 pb-4'>
         <div className='font-serif text-sm'>
           Page 3 • Competitions Section <br />
