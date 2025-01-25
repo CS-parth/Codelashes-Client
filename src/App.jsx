@@ -54,13 +54,14 @@ import ProfileContests from './components/profile/ProfileContests.jsx';
 import ProfileSubmissions from './components/profile/ProfileSubmissions.jsx';
 import AuthWrapper from './utils/AuthWrapper.jsx'
 import {ManageBlog} from './components/garage/ManageBlog.jsx';
+import ProblemPage from './components/problems/ProblemPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="problems" element={<Problems />} />
+        <Route path="problems" element={<ProblemPage />} />
         <Route path="contests" element={<Contests />} />
         <Route path="blogs" element={<Blogs />} />
         <Route path="sessions" element={<Sessions />} />

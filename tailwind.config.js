@@ -23,14 +23,19 @@ export default {
           "100%": {
             borderColor: "white"
           }
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' }
         }
       },
       animation: {
-        typing: "typing 3s steps(20), blink .7s infinite"
+        typing: "typing 3s steps(20), blink .7s infinite",
+        marquee: "marquee 30s linear infinite"
       },
       colors: {
         bar_base: "#ffa700",
-        bar_base_light: "	#ffde1a",
+        bar_base_light: "#ffde1a",
         bar_base_dark: "#ff7400",
         garage_darker: "#03045e",
         garage_dark: "#03045e",
@@ -42,4 +47,3 @@ export default {
   },
   plugins: [],
 }
-
