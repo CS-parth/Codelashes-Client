@@ -10,10 +10,10 @@ const Problem = (props) => {
       };
       
       return (
-        <tr className="">
+        <tr className="hover:bg-amber-200">
           <td className='text-center'>{statusComponents[props.status] || statusComponents.default}</td>
           <td className='text-center'>
-              <NavLink to={`/contests/${props.cid}/task/${props.id}`}>
+              <NavLink to={`/contests/${props.cid}/task/${props.id}`} className="hover:underline">
                   {props.title}
               </NavLink>
           </td>

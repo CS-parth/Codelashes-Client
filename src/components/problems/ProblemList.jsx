@@ -56,17 +56,17 @@ const ProblemList = ({status,difficulty,acceptance}) => {
       ) : error ? (
         <h1>{error}</h1>
       ) : (
-        problemList.map((problem,index) => (
-          <Problem 
-            key={index}
-            cid={problem.contest._id}
-            id={problem._id} 
-            status={problem.status} 
-            title={problem.title} 
-            acceptance={problem.acceptance} 
-            difficulty={problem.difficulty} 
-            editorial={problem.editorial}
-          />
+        problemList.map((problem,index) => (      
+            <Problem 
+              key={index}
+              cid={problem.contest._id}
+              id={problem._id} 
+              status={problem.status} 
+              title={problem.title} 
+              acceptance={problem.acceptance} 
+              difficulty={problem.difficulty} 
+              editorial={problem.editorial}
+            />
         ))
       )}
       </tbody>
