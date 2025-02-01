@@ -33,8 +33,8 @@ const ContestList = ({passed}) => {
     },[]);
   return (
     <div>
-        <table className='w-9/12 m-auto'>
-             <thead className='border-b-8 border-gray-400'>
+        <table className='w-9/12 m-auto mb-10'>
+             <thead className='border-b-8 border-amber-800'>
                 <tr>
                     <th>Name</th>
                     <th>Setters</th>
